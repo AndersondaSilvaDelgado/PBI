@@ -10,10 +10,9 @@ import android.widget.Button;
 
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
-
 import br.com.usinasantafe.pbi.util.ConexaoWeb;
 
-public class DigFuncActivity extends ActivityGeneric {
+public class DigProdActivity extends ActivityGeneric {
 
     private PBIContext pbiContext;
     private ProgressDialog progressBar;
@@ -21,7 +20,7 @@ public class DigFuncActivity extends ActivityGeneric {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dig_func);
+        setContentView(R.layout.activity_dig_prod);
 
         pbiContext = (PBIContext) getApplication();
 
@@ -33,7 +32,7 @@ public class DigFuncActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder alerta = new AlertDialog.Builder(  DigFuncActivity.this);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(  DigProdActivity.this);
                 alerta.setTitle("ATENÇÃO");
                 alerta.setMessage("DESEJA REALMENTE ATUALIZAR BASE DE DADOS?");
                 alerta.setNegativeButton("SIM", new DialogInterface.OnClickListener() {
@@ -42,19 +41,19 @@ public class DigFuncActivity extends ActivityGeneric {
 
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
 
-                        if (conexaoWeb.verificaConexao(DigFuncActivity.this)) {
+                        if (conexaoWeb.verificaConexao(DigProdActivity.this)) {
 
-                            progressBar = new ProgressDialog(DigFuncActivity.this);
+                            progressBar = new ProgressDialog(DigProdActivity.this);
                             progressBar.setCancelable(true);
-                            progressBar.setMessage("Atualizando Colaborador...");
+                            progressBar.setMessage("Atualizando Produto...");
                             progressBar.show();
 
-                            pbiContext.getMecanicoCTR().atualDadosColab(DigFuncActivity.this
+                            pbiContext.getMecanicoCTR().atualDadosColab(DigProdActivity.this
                                     , LeitorFuncActivity.class, progressBar);
 
                         } else {
 
-                            AlertDialog.Builder alerta = new AlertDialog.Builder( DigFuncActivity.this);
+                            AlertDialog.Builder alerta = new AlertDialog.Builder( DigProdActivity.this);
                             alerta.setTitle("ATENÇÃO");
                             alerta.setMessage("FALHA NA CONEXÃO DE DADOS. O CELULAR ESTA SEM SINAL. POR FAVOR, TENTE NOVAMENTE QUANDO O CELULAR ESTIVE COM SINAL.");
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -91,19 +90,19 @@ public class DigFuncActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    if (pbiContext.getMecanicoCTR().verMatricColab(Long.parseLong(editTextPadrao.getText().toString()))) {
+                    if (pbiContext.getReqProdutoCTR().verProduto(editTextPadrao.getText().toString())) {
 
-                        pbiContext.getConfigCTR().matricFuncConfig(Long.parseLong(editTextPadrao.getText().toString()));
+                        pbiContext.getReqProdutoCTR().getProduto(editTextPadrao.getText().toString());
 
-                        Intent it = new Intent(DigFuncActivity.this, MenuFuncaoActivity.class);
+                        Intent it = new Intent(DigProdActivity.this, QtdeProdActivity.class);
                         startActivity(it);
                         finish();
 
                     } else {
 
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(DigFuncActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(DigProdActivity.this);
                         alerta.setTitle("ATENÇÃO");
-                        alerta.setMessage("NUMERAÇÃO DO FUNCIONÁRIO INEXISTENTE! FAVOR VERIFICA A MESMA.");
+                        alerta.setMessage("CÓDIGO PRODUTO INEXISTENTE! FAVOR VERIFICA A MESMA.");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -133,7 +132,7 @@ public class DigFuncActivity extends ActivityGeneric {
     }
 
     public void onBackPressed()  {
-        Intent it = new Intent(DigFuncActivity.this, MenuInicialActivity.class);
+        Intent it = new Intent(DigProdActivity.this, LeitorProdActivity.class);
         startActivity(it);
         finish();
     }

@@ -12,48 +12,47 @@ import android.widget.TextView;
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.pbi.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pbi.util.ConexaoWeb;
 
-public class LeitorFuncActivity extends ActivityGeneric {
+public class LeitorProdActivity extends ActivityGeneric {
 
     public static final int REQUEST_CODE = 0;
     private PBIContext pbiContext;
-    private TextView txtRetFunc;
+    private TextView txtRetProd;
     private ProgressDialog progressBar;
-    private ColabBean colabBean;
+    private ProdutoBean produtoBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leitor_func);
+        setContentView(R.layout.activity_leitor_prod);
 
         pbiContext = (PBIContext) getApplication();
 
-        txtRetFunc = (TextView) findViewById(R.id.txtRetFunc);
-        Button buttonOkFunc = (Button) findViewById(R.id.buttonOkFunc);
-        Button buttonCancFunc = (Button) findViewById(R.id.buttonCancFunc);
-        Button buttonDigFunc = (Button) findViewById(R.id.buttonDigFunc);
+        txtRetProd = (TextView) findViewById(R.id.txtRetProd);
+        Button buttonOkProd = (Button) findViewById(R.id.buttonOkProd);
+        Button buttonCancProd = (Button) findViewById(R.id.buttonCancProd);
+        Button buttonDigProd = (Button) findViewById(R.id.buttonDigProd);
         Button buttonAtualPadrao = (Button) findViewById(R.id.buttonAtualPadrao);
-        Button buttonCaptMatric = (Button) findViewById(R.id.buttonCaptMatric);
+        Button buttonCaptProd = (Button) findViewById(R.id.buttonCaptProd);
 
-        colabBean = new ColabBean();
-        colabBean.setIdColab(0L);
-        colabBean.setMatricColab(0L);
-        colabBean.setIdEscalaTrabColab(0L);
-        colabBean.setNomeColab("");
+        produtoBean = new ProdutoBean();
 
-        txtRetFunc.setText("Por Favor, realize a leitura do Cartão do Colaborador Mecânico.");
+        produtoBean.setIdProduto(0L);
+        produtoBean.setCodProduto("");
+        produtoBean.setDescrProduto("");
 
-        buttonOkFunc.setOnClickListener(new View.OnClickListener() {
+        txtRetProd.setText("Por Favor, realize a leitura do Código de Barra de Produto.");
+
+        buttonOkProd.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                if (colabBean.getIdColab() > 0) {
+                if (produtoBean.getIdProduto() > 0) {
 
-                    pbiContext.getConfigCTR().matricFuncConfig(colabBean.getMatricColab());
-
-                    Intent it = new Intent(LeitorFuncActivity.this, MenuFuncaoActivity.class);
+                    Intent it = new Intent(LeitorProdActivity.this, QtdeProdActivity.class);
                     startActivity(it);
                     finish();
                 }
@@ -61,33 +60,42 @@ public class LeitorFuncActivity extends ActivityGeneric {
             }
         });
 
-        buttonCancFunc.setOnClickListener(new View.OnClickListener() {
+        buttonCancProd.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(LeitorFuncActivity.this, MenuInicialActivity.class);
+                if(pbiContext.getVerTela() == 5){
+                    pbiContext.setVerTela(4);
+                    Intent it = new Intent(LeitorProdActivity.this, ItemOSListaActivity.class);
+                    startActivity(it);
+                    finish();
+                }
+                else if(pbiContext.getVerTela() == 6){
+                    pbiContext.setVerTela(4);
+                    Intent it = new Intent(LeitorProdActivity.this, ItemOSDigActivity.class);
+                    startActivity(it);
+                    finish();
+                }
+            }
+
+        });
+
+        buttonDigProd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(LeitorProdActivity.this, DigProdActivity.class);
                 startActivity(it);
                 finish();
             }
 
         });
 
-        buttonDigFunc.setOnClickListener(new View.OnClickListener() {
+        buttonCaptProd.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent it = new Intent(LeitorFuncActivity.this, DigFuncActivity.class);
-                startActivity(it);
-                finish();
-            }
-
-        });
-
-        buttonCaptMatric.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(LeitorFuncActivity.this, br.com.usinasantafe.pbi.zxing.CaptureActivity.class);
+                Intent it = new Intent(LeitorProdActivity.this, br.com.usinasantafe.pbi.zxing.CaptureActivity.class);
                 startActivityForResult(it, REQUEST_CODE);
             }
 
@@ -97,7 +105,7 @@ public class LeitorFuncActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder alerta = new AlertDialog.Builder(LeitorFuncActivity.this);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(LeitorProdActivity.this);
                 alerta.setTitle("ATENÇÃO");
                 alerta.setMessage("DESEJA REALMENTE ATUALIZAR BASE DE DADOS?");
                 alerta.setNegativeButton("SIM", new DialogInterface.OnClickListener() {
@@ -106,19 +114,19 @@ public class LeitorFuncActivity extends ActivityGeneric {
 
                         ConexaoWeb conexaoWeb = new ConexaoWeb();
 
-                        if (conexaoWeb.verificaConexao(LeitorFuncActivity.this)) {
+                        if (conexaoWeb.verificaConexao(LeitorProdActivity.this)) {
 
-                            progressBar = new ProgressDialog(LeitorFuncActivity.this);
+                            progressBar = new ProgressDialog(LeitorProdActivity.this);
                             progressBar.setCancelable(true);
-                            progressBar.setMessage("Atualizando Colaborador...");
+                            progressBar.setMessage("Atualizando Produto...");
                             progressBar.show();
 
-                            pbiContext.getMecanicoCTR().atualDadosColab(LeitorFuncActivity.this
-                                    , LeitorFuncActivity.class, progressBar);
+                            pbiContext.getMecanicoCTR().atualDadosColab(LeitorProdActivity.this
+                                    , LeitorProdActivity.class, progressBar);
 
                         } else {
 
-                            AlertDialog.Builder alerta = new AlertDialog.Builder(LeitorFuncActivity.this);
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(LeitorProdActivity.this);
                             alerta.setTitle("ATENÇÃO");
                             alerta.setMessage("FALHA NA CONEXÃO DE DADOS. O CELULAR ESTA SEM SINAL. POR FAVOR, TENTE NOVAMENTE QUANDO O CELULAR ESTIVE COM SINAL.");
                             alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -155,14 +163,14 @@ public class LeitorFuncActivity extends ActivityGeneric {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
-            String matricula = data.getStringExtra("SCAN_RESULT");
-            if (matricula.length() == 8) {
-                matricula = matricula.substring(0, 7);
-                if (pbiContext.getMecanicoCTR().verMatricColab(Long.parseLong(matricula))) {
-                    colabBean = pbiContext.getMecanicoCTR().getColab(Long.parseLong(matricula));
-                    txtRetFunc.setText(matricula + "\n" + colabBean.getNomeColab());
+            String produto = data.getStringExtra("SCAN_RESULT");
+            if (produto.length() == 8) {
+                produto = produto.substring(0, 7);
+                if (pbiContext.getReqProdutoCTR().verProduto(produto)) {
+                    produtoBean = pbiContext.getReqProdutoCTR().getProduto(produto);
+                    txtRetProd.setText(produto + "\n" + produtoBean.getDescrProduto());
                 } else {
-                    txtRetFunc.setText("Funcionário Inexistente");
+                    txtRetProd.setText("Produto Inexistente");
                 }
             }
         }
@@ -170,9 +178,6 @@ public class LeitorFuncActivity extends ActivityGeneric {
     }
 
     public void onBackPressed() {
-        Intent it = new Intent(LeitorFuncActivity.this, MenuInicialActivity.class);
-        startActivity(it);
-        finish();
     }
 
 }

@@ -93,14 +93,29 @@ public class ItemOSListaActivity extends ActivityGeneric {
                                     long id) {
 
                 ItemOSBean itemOSBean = itemOSList.get(position);
-                pbiContext.getMecanicoCTR().getApontBean().setItemOSApont(itemOSBean.getSeqItemOS());
-                pbiContext.getMecanicoCTR().getApontBean().setParadaApont(0L);
-                pbiContext.getMecanicoCTR().getApontBean().setRealizApont(0L);
-                pbiContext.getMecanicoCTR().salvarApont();
 
-                Intent it = new Intent(ItemOSListaActivity.this, MenuInicialActivity.class);
-                startActivity(it);
-                finish();
+                if(pbiContext.getVerTela() == 3) {
+
+                    pbiContext.getMecanicoCTR().getApontBean().setItemOSApont(itemOSBean.getSeqItemOS());
+                    pbiContext.getMecanicoCTR().getApontBean().setParadaApont(0L);
+                    pbiContext.getMecanicoCTR().getApontBean().setRealizApont(0L);
+                    pbiContext.getMecanicoCTR().salvarApont();
+
+                    Intent it = new Intent(ItemOSListaActivity.this, MenuInicialActivity.class);
+                    startActivity(it);
+                    finish();
+
+                }
+                else if(pbiContext.getVerTela() == 4) {
+
+                    pbiContext.setVerTela(5);
+                    pbiContext.getReqProdutoCTR().getReqProdutoBean().setItemOSReqProd(itemOSBean.getSeqItemOS());
+
+                    Intent it = new Intent(ItemOSListaActivity.this, LeitorProdActivity.class);
+                    startActivity(it);
+                    finish();
+
+                }
 
             }
 

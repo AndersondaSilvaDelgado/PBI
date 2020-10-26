@@ -31,6 +31,10 @@ public class UrlsConexaoHttp {
         return urlPrincEnvio + "inserirbolaberto.php" + put;
     }
 
+    public String getsInsertReqProduto() {
+        return urlPrincEnvio + "inserirreqproduto.php" + put;
+    }
+
     public String urlVerifica(String classe) {
         String retorno = "";
         if (classe.equals("Equip")) {

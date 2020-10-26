@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.usinasantafe.pbi.control.MecanicoCTR;
+import br.com.usinasantafe.pbi.control.ReqProdutoCTR;
 import br.com.usinasantafe.pbi.util.conHttp.PostCadGenerico;
 import br.com.usinasantafe.pbi.util.conHttp.UrlsConexaoHttp;
 
@@ -68,6 +69,25 @@ public class EnvioDadosServ {
 
     }
 
+    public void enviarReqProduto() {
+
+        ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
+        String dados = reqProdutoCTR.dadosEnvioReqProduto();
+
+        Log.i("PMM", "REQ PRODUTO = " + dados);
+
+        UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
+
+        String[] url = {urlsConexaoHttp.getsInsertReqProduto()};
+        Map<String, Object> parametrosPost = new HashMap<String, Object>();
+        parametrosPost.put("dado", dados);
+
+        PostCadGenerico conHttpPostGenerico = new PostCadGenerico();
+        conHttpPostGenerico.setParametrosPost(parametrosPost);
+        conHttpPostGenerico.execute(url);
+
+    }
+
     /////////////////////////MECANISMO DE ENVIO//////////////////////////////////
 
     public void envioDados(Context context) {
@@ -84,11 +104,17 @@ public class EnvioDadosServ {
 
     public void envioDadosPrinc() {
         MecanicoCTR mecanicoCTR = new MecanicoCTR();
+        ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
         if (mecanicoCTR.verBoletimFechado()) {
             enviarBolFechado();
         } else {
             if (mecanicoCTR.verApontSemEnvio()) {
                 enviarBolAberto();
+            }
+            else{
+                if(reqProdutoCTR.verReqProduto()){
+
+                }
             }
         }
     }

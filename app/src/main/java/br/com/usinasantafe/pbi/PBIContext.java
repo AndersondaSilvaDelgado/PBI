@@ -4,13 +4,21 @@ import android.app.Application;
 
 import br.com.usinasantafe.pbi.control.ConfigCTR;
 import br.com.usinasantafe.pbi.control.MecanicoCTR;
+import br.com.usinasantafe.pbi.control.ReqProdutoCTR;
 
 public class PBIContext extends Application {
 
     public static String versaoAplic = "1.00";
     private ConfigCTR configCTR;
     private MecanicoCTR mecanicoCTR;
-    private int verTela; //1 - Parada Normal; 2 - Parada para Fechar Boletim; 3 - Calibragem de Pneu; 4 - Troca de Pneu;
+    private ReqProdutoCTR reqProdutoCTR;
+    private int verTela;
+    // 1 - Parada Normal;
+    // 2 - Parada para Fechar Boletim;
+    // 3 - Atividade Normal;
+    // 4 - Requisição Produto;
+    // 5 - ItemOSLista
+    // 6 - ItemOSDig;
 
     @Override
     public void onCreate() {
@@ -27,6 +35,12 @@ public class PBIContext extends Application {
         if(mecanicoCTR == null)
             mecanicoCTR = new MecanicoCTR();
         return mecanicoCTR;
+    }
+
+    public ReqProdutoCTR getReqProdutoCTR() {
+        if(reqProdutoCTR == null)
+            reqProdutoCTR = new ReqProdutoCTR();
+        return reqProdutoCTR;
     }
 
     public int getVerTela() {

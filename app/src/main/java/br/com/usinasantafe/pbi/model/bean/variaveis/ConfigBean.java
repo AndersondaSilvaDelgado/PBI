@@ -13,9 +13,11 @@ public class ConfigBean extends Entidade {
     @DatabaseField(generatedId=true)
     private Long idConfig;
     @DatabaseField
-    private Long equipConfig;
+    private Long aparelhoConfig;
     @DatabaseField
     private String senhaConfig;
+    @DatabaseField
+    private Long matricFuncConfig;
 
     public ConfigBean() {
     }
@@ -28,12 +30,12 @@ public class ConfigBean extends Entidade {
         this.idConfig = idConfig;
     }
 
-    public Long getEquipConfig() {
-        return equipConfig;
+    public Long getAparelhoConfig() {
+        return aparelhoConfig;
     }
 
-    public void setEquipConfig(Long equipConfig) {
-        this.equipConfig = equipConfig;
+    public void setAparelhoConfig(Long aparelhoConfig) {
+        this.aparelhoConfig = aparelhoConfig;
     }
 
     public String getSenhaConfig() {
@@ -42,5 +44,13 @@ public class ConfigBean extends Entidade {
 
     public void setSenhaConfig(String senhaConfig) {
         this.senhaConfig = senhaConfig;
+    }
+
+    public Long getMatricFuncConfig() {
+        return matricFuncConfig;
+    }
+
+    public void setMatricFuncConfig(Long matricFuncConfig) {
+        this.matricFuncConfig = matricFuncConfig;
     }
 }

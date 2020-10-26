@@ -18,7 +18,7 @@ import br.com.usinasantafe.pbi.util.VerifDadosServ;
 public class OSActivity extends ActivityGeneric {
 
     private ProgressDialog progressBar;
-    private PBIContext pbmContext;
+    private PBIContext pbiContext;
     private Handler customHandler = new Handler();
 
     @Override
@@ -26,7 +26,7 @@ public class OSActivity extends ActivityGeneric {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_os);
 
-        pbmContext = (PBIContext) getApplication();
+        pbiContext = (PBIContext) getApplication();
 
         Button buttonOkOS = (Button) findViewById(R.id.buttonOkPadrao);
         Button buttonCancOS = (Button) findViewById(R.id.buttonCancPadrao);
@@ -37,12 +37,17 @@ public class OSActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
-                    pbmContext.getMecanicoCTR().setApontBean(new ApontBean());
-                    pbmContext.getMecanicoCTR().getApontBean().setOsApont(Long.parseLong(editTextPadrao.getText().toString()));
+                    if(pbiContext.getVerTela() == 3) {
+                        pbiContext.getMecanicoCTR().setApontBean(new ApontBean());
+                        pbiContext.getMecanicoCTR().getApontBean().setOsApont(Long.parseLong(editTextPadrao.getText().toString()));
+                    }
+                    else if(pbiContext.getVerTela() == 4) {
+                        pbiContext.getReqProdutoCTR().getReqProdutoBean().setOsReqProd(Long.parseLong(editTextPadrao.getText().toString()));
+                    }
 
                     try {
 
-                        if(pbmContext.getMecanicoCTR().verOSApont(Long.parseLong(editTextPadrao.getText().toString()))) {
+                        if(pbiContext.getMecanicoCTR().verOSApont(Long.parseLong(editTextPadrao.getText().toString()))) {
 
                             Intent it = new Intent(OSActivity.this, ItemOSListaActivity.class);
                             startActivity(it);
@@ -61,7 +66,7 @@ public class OSActivity extends ActivityGeneric {
 
                                 customHandler.postDelayed(updateTimerThread, 10000);
 
-                                pbmContext.getMecanicoCTR().verOS(editTextPadrao.getText().toString()
+                                pbiContext.getMecanicoCTR().verOS(editTextPadrao.getText().toString()
                                         , OSActivity.this, ItemOSListaActivity.class, progressBar);
 
                             } else {
@@ -82,7 +87,6 @@ public class OSActivity extends ActivityGeneric {
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
 

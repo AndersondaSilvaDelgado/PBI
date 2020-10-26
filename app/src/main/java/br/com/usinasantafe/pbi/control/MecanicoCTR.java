@@ -80,7 +80,7 @@ public class MecanicoCTR {
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    //////////////////////////////// SALVAR/ATUALIZAR DADOS //////////////////////////////////////
+    ///////////////////////////// SALVAR/ATUALIZAR/EXCLUIR DADOS /////////////////////////////////
 
     public void insertParametro(String parametros){
 
@@ -104,19 +104,16 @@ public class MecanicoCTR {
         }
     }
 
-    public void atualSalvarBoletim(ColabBean colabBean){
+    public void atualSalvarBoletim(){
 
         ConfigCTR configCTR = new ConfigCTR();
-
-        BoletimDAO boletimDAO = new BoletimDAO();
-        boletimDAO.atualSalvarBoletim(configCTR.getConfig().getEquipConfig(), colabBean.getIdColab(), getEscalaTrab(colabBean.getIdEscalaTrabColab()).getHorarioEntEscalaTrab());
-
-    }
-
-    public void atualBoletimSApont(){
         BoletimDAO boletimDAO = new BoletimDAO();
         boletimDAO.atualBoletimSApont();
+        ColabBean colabBean = getColab(configCTR.getConfig().getMatricFuncConfig());
+        boletimDAO.atualSalvarBoletim(configCTR.getConfig().getAparelhoConfig(), colabBean.getIdColab(), getEscalaTrab(colabBean.getIdEscalaTrabColab()).getHorarioEntEscalaTrab());
+
     }
+
 
     public void salvarApont(){
         BoletimDAO boletimDAO = new BoletimDAO();
@@ -150,6 +147,21 @@ public class MecanicoCTR {
         BoletimDAO boletimDAO = new BoletimDAO();
         ApontDAO apontDAO = new ApontDAO();
         apontDAO.interroperApont(apontDAO.apontList(boletimDAO.getBoletimApont().getIdBoletim()).get(0));
+    }
+
+    public void delBolSApont() {
+
+        BoletimDAO boletimDAO = new BoletimDAO();
+        ApontDAO apontDAO = new ApontDAO();
+
+        List<BoletimBean> boletimList = boletimDAO.boletimAllList();
+
+        for(BoletimBean boletimBean : boletimList){
+            if(!apontDAO.verApont(boletimBean.getIdBoletim())){
+                boletimDAO.delBoletim(boletimBean);
+            }
+        }
+
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////

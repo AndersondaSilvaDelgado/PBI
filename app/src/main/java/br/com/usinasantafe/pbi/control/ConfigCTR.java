@@ -24,16 +24,6 @@ public class ConfigCTR {
         return configDAO.getConfig();
     }
 
-    public EquipBean getEquip(){
-        EquipDAO equipDAO = new EquipDAO();
-        return equipDAO.getIdEquip(getConfig().getEquipConfig());
-    }
-
-    public EquipBean getEquip(Long nroEquip){
-        EquipDAO equipDAO = new EquipDAO();
-        return equipDAO.getNroEquip(nroEquip);
-    }
-
     public boolean verNroEquip(Long nroEquip){
         EquipDAO equipDAO = new EquipDAO();
         return equipDAO.verNroEquip(nroEquip);
@@ -44,5 +34,9 @@ public class ConfigCTR {
         configDAO.insert(idEquip, senha);
     }
 
+    public void matricFuncConfig(Long matricFunc){
+        ConfigDAO configDAO = new ConfigDAO();
+        configDAO.matricFuncConfig(matricFunc);
+    }
 
 }

@@ -175,6 +175,13 @@ public class BoletimDAO {
 
     }
 
+    public List<BoletimBean> boletimAllList(){
+
+        BoletimBean boletimBean = new BoletimBean();
+        return boletimBean.all();
+
+    }
+
     public String dadosBolAbertoSemEnvio(ArrayList<Long> idBolAbertoList){
 
         List<BoletimBean> bolFechadoList = boletimSemEnvioList(idBolAbertoList);

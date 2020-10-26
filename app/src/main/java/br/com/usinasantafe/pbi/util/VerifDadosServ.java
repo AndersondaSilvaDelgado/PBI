@@ -125,7 +125,7 @@ public class VerifDadosServ {
 
         ConfigCTR configCTR = new ConfigCTR();
 
-        atualAplicBean.setIdEquipAtual(configCTR.getConfig().getEquipConfig());
+        atualAplicBean.setIdEquipAtual(configCTR.getConfig().getAparelhoConfig());
 
         JsonArray jsonArray = new JsonArray();
 

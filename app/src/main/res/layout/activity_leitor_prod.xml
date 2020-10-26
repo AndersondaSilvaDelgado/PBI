@@ -9,24 +9,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.LeitorFuncActivity">
+    tools:context=".view.LeitorProdActivity">
 
     <TextView
-        android:id="@+id/txtTituloFunc"
+        android:id="@+id/txtTituloProd"
         style="@style/TextViewTituloLista"
-        android:text="@string/texto_funcionario" />
+        android:text="@string/texto_produto" />
 
     <TextView
-        android:id="@+id/txtRetFunc"
+        android:id="@+id/txtRetProd"
         style="@style/TextView"
         android:text="@string/texto_func_matric" />
 
     <Button
-        android:id="@+id/buttonCaptMatric"
+        android:id="@+id/buttonCaptProd"
         style="@style/BotaoAvulso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/texto_pega_matric" />
+        android:text="@string/texto_pega_prod" />
 
     <LinearLayout
         android:id="@+id/rightRelativeLayout"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/buttonOkFunc"
+            android:id="@+id/buttonOkProd"
             style="@style/BotaoAvulso"
             android:layout_weight="1"
             android:layout_width="fill_parent"
@@ -42,7 +42,7 @@
             android:text="@string/texto_padrao_ok" />
 
         <Button
-            android:id="@+id/buttonCancFunc"
+            android:id="@+id/buttonCancProd"
             style="@style/BotaoAvulso"
             android:layout_weight="1"
             android:layout_width="fill_parent"
@@ -59,10 +59,10 @@
         android:text="@string/texto_atualizar_bd" />
 
     <Button
-        android:id="@+id/buttonDigFunc"
+        android:id="@+id/buttonDigProd"
         style="@style/BotaoAvulso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/texto_dig_matric" />
+        android:text="@string/texto_dig_prod" />
 
 </LinearLayout>

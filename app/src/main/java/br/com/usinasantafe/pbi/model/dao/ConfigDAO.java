@@ -11,8 +11,9 @@ public class ConfigDAO {
 
     public void insert(Long idEquip, String senha){
         ConfigBean configBean = new ConfigBean();
-        configBean.setEquipConfig(idEquip);
+        configBean.setAparelhoConfig(idEquip);
         configBean.setSenhaConfig(senha);
+        configBean.setMatricFuncConfig(0L);
         configBean.insert();
     }
 
@@ -35,6 +36,12 @@ public class ConfigDAO {
         boolean ret = (configList.size() > 0);
         configList.clear();
         return ret;
+    }
+
+    public void matricFuncConfig(Long matricFunc){
+        ConfigBean configBean = getConfig();
+        configBean.setMatricFuncConfig(matricFunc);
+        configBean.update();
     }
 
 }

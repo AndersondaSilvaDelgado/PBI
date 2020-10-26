@@ -137,6 +137,13 @@ public class ApontDAO {
         return ret;
     }
 
+    public boolean verApont(Long idBol){
+        List<ApontBean> apontList = apontList(idBol);
+        boolean ret = (apontList.size() > 0);
+        apontList.clear();
+        return ret;
+    }
+
     public List<ApontBean> apontList(Long idBol){
         ArrayList pesqArrayList = new ArrayList();
         pesqArrayList.add(getPesqIdBol(idBol));

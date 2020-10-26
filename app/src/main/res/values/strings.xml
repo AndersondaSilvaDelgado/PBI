@@ -178,4 +178,9 @@
     <string name="texto_titulo_menu">MENU</string>
     <string name="texto_titulo_opcao">OPÇÃO</string>
     <string name="texto_os">NUM. OS:</string>
+    <string name="texto_letra_a">A</string>
+    <string name="texto_produto">PRODUTO</string>
+    <string name="texto_pega_prod">CAPTURAR CÓDIGO DE BARRA PRODUTO</string>
+    <string name="texto_dig_prod">DIGITAR PRODUTO</string>
+    <string name="texto_qtde_prod">QTDE PRODUTO:</string>
 </resources>

@@ -79,6 +79,8 @@ public class MenuInicialActivity extends ActivityGeneric {
             startTimer("OFF");
         }
 
+        clearBD();
+
         listarMenuInicial();
 
     }
@@ -203,5 +205,9 @@ public class MenuInicialActivity extends ActivityGeneric {
             customHandler.postDelayed(this, 10000);
         }
     };
+
+    public void clearBD(){
+        pbiContext.getMecanicoCTR().delBolSApont();
+    }
 
 }

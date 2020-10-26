@@ -43,6 +43,7 @@ public class MenuFuncaoActivity extends ActivityGeneric {
         itens.add("APONTAMENTO");
         itens.add("FINALIZAR/INTERROPER");
         itens.add("FINALIZAR TURNO");
+        itens.add("REQUISITAR PRODUTO");
         itens.add("HISTÓRICO");
 
         AdapterList adapterList = new AdapterList(this, itens);
@@ -60,10 +61,12 @@ public class MenuFuncaoActivity extends ActivityGeneric {
 
                 if (text.equals("APONTAMENTO")) {
 
-                    Intent it;
+                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
 
+                    Intent it;
                     if (!pbiContext.getMecanicoCTR().verApont()) {
                         if (Tempo.getInstance().verifDataHoraParada(Tempo.getInstance().dataSHoraComTZ() + " " + pbiContext.getMecanicoCTR().getEscalaTrab(pbiContext.getMecanicoCTR().getColabApont().getIdEscalaTrabColab()).getHorarioEntEscalaTrab())) {
+                            pbiContext.setVerTela(3);
                             it = new Intent(MenuFuncaoActivity.this, OSActivity.class);
                             startActivity(it);
                             finish();
@@ -128,6 +131,8 @@ public class MenuFuncaoActivity extends ActivityGeneric {
 
                 } else if (text.equals("FINALIZAR/INTERROPER")) {
 
+                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
+
                     if (pbiContext.getMecanicoCTR().verApont()) {
 
                         if(Tempo.getInstance().verifDataHoraFechBoletim(pbiContext.getMecanicoCTR().getUltApont().getDthrInicialApont())) {
@@ -189,6 +194,8 @@ public class MenuFuncaoActivity extends ActivityGeneric {
                     }
 
                 } else if (text.equals("FINALIZAR TURNO")) {
+
+                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
 
                     AlertDialog.Builder alerta = new AlertDialog.Builder(MenuFuncaoActivity.this);
                     alerta.setTitle("ATENÇÃO");
@@ -259,10 +266,18 @@ public class MenuFuncaoActivity extends ActivityGeneric {
 
                 } else if (text.equals("HISTÓRICO")) {
 
+                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
                     Intent it = new Intent(MenuFuncaoActivity.this, ListaHistoricoActivity.class);
                     startActivity(it);
                     finish();
 
+                } else if (text.equals("REQUISITAR PRODUTO")) {
+
+                    pbiContext.getReqProdutoCTR().setReqProdutoBean();
+                    pbiContext.setVerTela(4);
+                    Intent it = new Intent(MenuFuncaoActivity.this, OSActivity.class);
+                    startActivity(it);
+                    finish();
                 }
 
             }

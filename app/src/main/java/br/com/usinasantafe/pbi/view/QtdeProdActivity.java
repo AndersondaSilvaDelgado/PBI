@@ -10,19 +10,19 @@ import android.widget.Button;
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
 
-public class ItemOSDigActivity extends ActivityGeneric {
+public class QtdeProdActivity extends ActivityGeneric {
 
     private PBIContext pbiContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_os_dig);
+        setContentView(R.layout.activity_qtde_prod);
+
+        pbiContext = (PBIContext) getApplication();
 
         Button buttonOkItemOSDig = (Button) findViewById(R.id.buttonOkPadrao);
         Button buttonCancItemOSDig = (Button) findViewById(R.id.buttonCancPadrao);
-
-        pbiContext = (PBIContext) getApplication();
 
         buttonOkItemOSDig.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,29 +32,15 @@ public class ItemOSDigActivity extends ActivityGeneric {
 
                     if (Long.parseLong(editTextPadrao.getText().toString()) < 1000) {
 
-                        if(pbiContext.getVerTela() == 3) {
+                        pbiContext.getReqProdutoCTR().getReqProdutoBean().setQtdeReqProd(Long.parseLong(editTextPadrao.getText().toString()));
+                        pbiContext.getReqProdutoCTR().insertReqProduto();
 
-                            pbiContext.getMecanicoCTR().getApontBean().setItemOSApont(Long.parseLong(editTextPadrao.getText().toString()));
-                            pbiContext.getMecanicoCTR().salvarApont();
-
-                            Intent it = new Intent(ItemOSDigActivity.this, MenuInicialActivity.class);
-                            startActivity(it);
-                            finish();
-
-                        }
-                        else if(pbiContext.getVerTela() == 4) {
-
-                            pbiContext.setVerTela(6);
-                            pbiContext.getReqProdutoCTR().getReqProdutoBean().setItemOSReqProd(Long.parseLong(editTextPadrao.getText().toString()));
-
-                            Intent it = new Intent(ItemOSDigActivity.this, LeitorProdActivity.class);
-                            startActivity(it);
-                            finish();
-
-                        }
+                        Intent it = new Intent(QtdeProdActivity.this, MenuInicialActivity.class);
+                        startActivity(it);
+                        finish();
 
                     } else {
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(ItemOSDigActivity.this);
+                        AlertDialog.Builder alerta = new AlertDialog.Builder(QtdeProdActivity.this);
                         alerta.setTitle("ATENÇÃO");
                         alerta.setMessage("VALOR ACIMA DO QUE O PERMITIDO. POR FAVOR, VERIFIQUE O VALOR!");
                         alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -68,6 +54,7 @@ public class ItemOSDigActivity extends ActivityGeneric {
                     }
 
                 }
+
             }
         });
 
@@ -79,12 +66,13 @@ public class ItemOSDigActivity extends ActivityGeneric {
                     editTextPadrao.setText(editTextPadrao.getText().toString().substring(0, editTextPadrao.getText().toString().length() - 1));
                 }
             }
+
         });
 
     }
 
     public void onBackPressed() {
-        Intent it = new Intent(ItemOSDigActivity.this, OSActivity.class);
+        Intent it = new Intent(QtdeProdActivity.this, LeitorProdActivity.class);
         startActivity(it);
         finish();
     }
