@@ -27,10 +27,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".view.QtdeProdActivity"></activity>
-        <activity android:name=".view.DigProdActivity" />
-        <activity android:name=".view.LeitorProdActivity" />
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".view.ListaLocalActivity"></activity>
+        <activity android:name=".view.ListaEmbalagemActivity" />
+        <activity android:name=".view.ListaProdutoActivity" />
+        <activity
+            android:name=".view.QtdeProdActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".view.DigProdActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".view.LeitorProdActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".view.SenhaActivity"
             android:screenOrientation="portrait"
@@ -75,6 +88,11 @@
             android:name=".view.ConfigActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity android:name=".view.MenuInicialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

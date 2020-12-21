@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".view.ListaProdutoActivity">
+
+    <TextView
+        android:id="@+id/textViewTituloFunc"
+        style="@style/TextViewMenuNegrito"
+        android:text="@string/texto_menu_titulo_func" />
+
+    <TextView
+        android:id="@+id/textViewFunc"
+        style="@style/TextViewMenuNormal"
+        android:text="@string/texto_menu_func" />
+
+    <TextView
+        android:id="@+id/textViewNroOS"
+        style="@style/TextViewMenuNormal"
+        android:text="@string/texto_menu_nro_os" />
+
+    <TextView
+        android:id="@+id/textViewItemOS"
+        style="@style/TextViewMenuNormal"
+        android:text="@string/texto_menu_item_os" />
+
+    <TextView
+        android:id="@+id/textViewTituloProduto"
+        style="@style/TextViewTituloLista"
+        android:text="@string/texto_titulo_prod" />
+
+    <ListView
+        android:id="@+id/listViewProduto"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/buttonInserirProduto"
+        style="@style/BotaoAvulso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_add_produto" />
+
+    <Button
+        android:id="@+id/buttonFinalizarReq"
+        style="@style/BotaoAvulso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_finalizar_req" />
+
+    <Button
+        android:id="@+id/buttonRetMenuProd"
+        style="@style/BotaoAvulso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_ret_menu" />
+
+</LinearLayout>

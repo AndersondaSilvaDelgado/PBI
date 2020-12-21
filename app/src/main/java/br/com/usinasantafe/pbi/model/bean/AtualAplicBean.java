@@ -6,19 +6,19 @@ package br.com.usinasantafe.pbi.model.bean;
 
 public class AtualAplicBean {
 
-    private Long idEquipAtual;
+    private Long nroAparelhoAtual;
     private String versaoAtual;
     private String versaoNova;
 
     public AtualAplicBean() {
     }
 
-    public Long getIdEquipAtual() {
-        return idEquipAtual;
+    public Long getNroAparelhoAtual() {
+        return nroAparelhoAtual;
     }
 
-    public void setIdEquipAtual(Long idEquipAtual) {
-        this.idEquipAtual = idEquipAtual;
+    public void setNroAparelhoAtual(Long nroAparelhoAtual) {
+        this.nroAparelhoAtual = nroAparelhoAtual;
     }
 
     public String getVersaoAtual() {

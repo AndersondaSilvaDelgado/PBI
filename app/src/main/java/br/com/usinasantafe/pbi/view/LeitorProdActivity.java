@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
-import br.com.usinasantafe.pbi.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pbi.util.ConexaoWeb;
 
@@ -52,9 +51,38 @@ public class LeitorProdActivity extends ActivityGeneric {
 
                 if (produtoBean.getIdProduto() > 0) {
 
-                    Intent it = new Intent(LeitorProdActivity.this, QtdeProdActivity.class);
-                    startActivity(it);
-                    finish();
+                    pbiContext.getReqProdutoCTR().setItemReqProduto(produtoBean.getIdProduto());
+
+                    if(pbiContext.getReqProdutoCTR().verQtdeEmbProd()){
+
+                        pbiContext.getReqProdutoCTR().setIdEmbProdReqProduto();
+
+                        if(pbiContext.getReqProdutoCTR().verQtdeLocalProd()){
+
+                            pbiContext.getReqProdutoCTR().setIdLocalProdReqProduto();
+
+                            Intent it = new Intent(LeitorProdActivity.this, QtdeProdActivity.class);
+                            startActivity(it);
+                            finish();
+
+                        }
+                        else{
+
+                            Intent it = new Intent(LeitorProdActivity.this, ListaLocalActivity.class);
+                            startActivity(it);
+                            finish();
+
+                        }
+
+                    }
+                    else{
+
+                        Intent it = new Intent(LeitorProdActivity.this, ListaEmbalagemActivity.class);
+                        startActivity(it);
+                        finish();
+
+                    }
+
                 }
 
             }

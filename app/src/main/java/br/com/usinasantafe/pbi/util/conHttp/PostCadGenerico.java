@@ -98,23 +98,8 @@ public class PostCadGenerico extends AsyncTask<String, Void, String> {
 
 	protected void onPostExecute(String result) {
 
-		try {
-			EnvioDadosServ.getInstance().setEnviando(false);
-			Log.i("ECM", "VALOR RECEBIDO --> " + result);
-			MecanicoCTR mecanicoCTR = new MecanicoCTR();
-			if(result.trim().startsWith("BOLFECHADOMEC")){
-				mecanicoCTR.delBolFechado(result);
-			}
-			else if(result.trim().startsWith("BOLABERTOMEC")){
-				mecanicoCTR.atualBolAberto(result);
-			}
-			else if(result.trim().startsWith("APONTMEC")){
-				mecanicoCTR.atualApont(result);
-			}
-		} catch (Exception e) {
-			EnvioDadosServ.getInstance().setEnviando(true);
-		}
-		
+		EnvioDadosServ.getInstance().recebeDados(result);
+
     }
 
 	public void setParametrosPost(Map<String, Object> parametrosPost) {

@@ -84,12 +84,13 @@ public class AtualDadosServ {
 	}
 	
 
-	public void atualizarBD(ProgressDialog progressDialog){
+	public void atualTodasTabelas(ProgressDialog progressDialog, Context telaAtual){
 		
 		try {
 			
 			this.tipoReceb = 1;
 			this.progressDialog = progressDialog;
+			this.telaAtual = telaAtual;
 			tabAtualArrayList = new ArrayList();
 	        Class<?> retClasse = Class.forName(urlsConexaoHttp.localUrl);
 
@@ -265,16 +266,11 @@ public class AtualDadosServ {
 		}
 	}
 
-
 	public String manipLocalClasse(String classe){
 	    if(classe.contains("Bean")){
 	    	classe = urlsConexaoHttp.localPSTEstatica + classe;
 	    }
 		return classe;
-	}
-	
-	public void setTelaAtual(Context telaAtual){
-		this.telaAtual = telaAtual;
 	}
 	
 }

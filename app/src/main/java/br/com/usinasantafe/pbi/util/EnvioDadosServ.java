@@ -29,7 +29,7 @@ public class EnvioDadosServ {
         return instance;
     }
 
-    //////////////////////// ENVIAR DADOS ////////////////////////////////////////////
+    ////////////////////////////////// ENVIAR DADOS //////////////////////////////////////////////
 
     public void enviarBolAberto() {
 
@@ -70,25 +70,56 @@ public class EnvioDadosServ {
     }
 
     public void enviarReqProduto() {
-
-        ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
-        String dados = reqProdutoCTR.dadosEnvioReqProduto();
-
-        Log.i("PMM", "REQ PRODUTO = " + dados);
-
-        UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
-
-        String[] url = {urlsConexaoHttp.getsInsertReqProduto()};
-        Map<String, Object> parametrosPost = new HashMap<String, Object>();
-        parametrosPost.put("dado", dados);
-
-        PostCadGenerico conHttpPostGenerico = new PostCadGenerico();
-        conHttpPostGenerico.setParametrosPost(parametrosPost);
-        conHttpPostGenerico.execute(url);
+//
+//        ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
+//        String dados = reqProdutoCTR.dadosEnvioReqProduto();
+//
+//        Log.i("PMM", "REQ PRODUTO = " + dados);
+//
+//        UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
+//
+//        String[] url = {urlsConexaoHttp.getsInsertReqProduto()};
+//        Map<String, Object> parametrosPost = new HashMap<String, Object>();
+//        parametrosPost.put("dado", dados);
+//
+//        PostCadGenerico conHttpPostGenerico = new PostCadGenerico();
+//        conHttpPostGenerico.setParametrosPost(parametrosPost);
+//        conHttpPostGenerico.execute(url);
 
     }
 
-    /////////////////////////MECANISMO DE ENVIO//////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////// ENVIAR DADOS ////////////////////////////////////////////
+
+    public void recebeDados(String result){
+
+        try {
+            setEnviando(false);
+            Log.i("ECM", "VALOR RECEBIDO --> " + result);
+            MecanicoCTR mecanicoCTR = new MecanicoCTR();
+            ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
+            if(result.trim().startsWith("BOLFECHADOMEC")){
+                mecanicoCTR.delBolFechado(result);
+            }
+            else if(result.trim().startsWith("BOLABERTOMEC")){
+                mecanicoCTR.atualBolAberto(result);
+            }
+            else if(result.trim().startsWith("APONTMEC")){
+                mecanicoCTR.atualApont(result);
+            }
+            else if(result.trim().startsWith("REQPRODUTO")){
+//                reqProdutoCTR.delReqProduto(result);
+            }
+        } catch (Exception e) {
+            setEnviando(true);
+        }
+
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////MECANISMO DE ENVIO///////////////////////////////////////
 
     public void envioDados(Context context) {
         enviando = true;
@@ -112,9 +143,9 @@ public class EnvioDadosServ {
                 enviarBolAberto();
             }
             else{
-                if(reqProdutoCTR.verReqProduto()){
-
-                }
+//                if(reqProdutoCTR.verReqProduto()){
+//                    enviarReqProduto();
+//                }
             }
         }
     }
@@ -142,6 +173,8 @@ public class EnvioDadosServ {
         }
         return statusEnvio;
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
 
     public void setEnviando(boolean enviando) {
         this.enviando = enviando;

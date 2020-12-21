@@ -2,6 +2,7 @@ package br.com.usinasantafe.pbi.control;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -12,32 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.usinasantafe.pbi.model.bean.estaticas.ColabBean;
-import br.com.usinasantafe.pbi.model.bean.estaticas.ComponenteBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.EscalaTrabBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ItemOSBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ParadaBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ParametroBean;
-import br.com.usinasantafe.pbi.model.bean.estaticas.ServicoBean;
-import br.com.usinasantafe.pbi.model.bean.variaveis.ApontBean;
-import br.com.usinasantafe.pbi.model.bean.variaveis.BoletimBean;
-import br.com.usinasantafe.pbi.model.dao.ApontDAO;
-import br.com.usinasantafe.pbi.model.dao.BoletimDAO;
+import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.BoletimIndBean;
+import br.com.usinasantafe.pbi.model.dao.ApontIndDAO;
+import br.com.usinasantafe.pbi.model.dao.BoletimIndDAO;
 import br.com.usinasantafe.pbi.model.dao.ColabDAO;
-import br.com.usinasantafe.pbi.model.dao.ComponenteDAO;
 import br.com.usinasantafe.pbi.model.dao.EscalaTrabDAO;
 import br.com.usinasantafe.pbi.model.dao.ItemOSDAO;
 import br.com.usinasantafe.pbi.model.dao.OSDAO;
 import br.com.usinasantafe.pbi.model.dao.ParadaDAO;
 import br.com.usinasantafe.pbi.model.dao.ParametroDAO;
-import br.com.usinasantafe.pbi.model.dao.ServicoDAO;
 import br.com.usinasantafe.pbi.util.AtualDadosServ;
 import br.com.usinasantafe.pbi.util.Tempo;
 import br.com.usinasantafe.pbi.util.VerifDadosServ;
 
 public class MecanicoCTR {
 
-    private ApontBean apontBean;
+    private ApontIndBean apontIndBean;
 
     public MecanicoCTR() {
     }
@@ -55,27 +52,27 @@ public class MecanicoCTR {
     }
 
     public boolean verApont(){
-        List<ApontBean> apontList = apontBolApontList();
+        List<ApontIndBean> apontList = apontBolApontList();
         boolean ret = (apontList.size() > 0);
         apontList.clear();
         return ret;
     }
 
     public boolean verOSApont(Long nroOS){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        ApontDAO apontDAO = new ApontDAO();
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
         OSDAO osDAO = new OSDAO();
-        return (apontDAO.verOSApont(boletimDAO.getBoletimApont().getIdBoletim(), nroOS) && osDAO.verOS(nroOS));
+        return (apontIndDAO.verOSApont(boletimIndDAO.getBoletimApont().getIdBoletim(), nroOS) && osDAO.verOS(nroOS));
     }
 
     public boolean verBoletimFechado(){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        return boletimDAO.verBoletimFechado();
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        return boletimIndDAO.verBoletimFechado();
     }
 
     public boolean verApontSemEnvio(){
-        ApontDAO apontDAO = new ApontDAO();
-        return apontDAO.verApontSemEnvio();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        return apontIndDAO.verApontSemEnvio();
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,58 +104,58 @@ public class MecanicoCTR {
     public void atualSalvarBoletim(){
 
         ConfigCTR configCTR = new ConfigCTR();
-        BoletimDAO boletimDAO = new BoletimDAO();
-        boletimDAO.atualBoletimSApont();
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        boletimIndDAO.atualBoletimSApont();
         ColabBean colabBean = getColab(configCTR.getConfig().getMatricFuncConfig());
-        boletimDAO.atualSalvarBoletim(configCTR.getConfig().getAparelhoConfig(), colabBean.getIdColab(), getEscalaTrab(colabBean.getIdEscalaTrabColab()).getHorarioEntEscalaTrab());
+        boletimIndDAO.atualSalvarBoletim(configCTR.getConfig().getAparelhoConfig(), colabBean.getIdColab(), getEscalaTrab(colabBean.getIdEscalaTrabColab()).getHorarioEntEscalaTrab());
 
     }
 
 
     public void salvarApont(){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        ApontDAO apontDAO = new ApontDAO();
-        apontDAO.salvarApont(apontBean, getEscalaTrab(getColabApont().getIdEscalaTrabColab()).getHorarioEntEscalaTrab(), boletimDAO.getBoletimApont());
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        apontIndDAO.salvarApont(apontIndBean, getEscalaTrab(getColabApont().getIdEscalaTrabColab()).getHorarioEntEscalaTrab(), boletimIndDAO.getBoletimApont());
 
     }
 
     public void fecharBoletim(){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        boletimDAO.fecharBoletim(boletimDAO.getBoletimApont());
-        ApontDAO apontDAO = new ApontDAO();
-        apontDAO.fecharApont(getUltApont());
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        boletimIndDAO.fecharBoletim(boletimIndDAO.getBoletimApont());
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        apontIndDAO.fecharApont(getUltApont());
     }
 
     public void forcarFechBoletim(){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        ApontDAO apontDAO = new ApontDAO();
-        String dthrFinal = Tempo.getInstance().dataFinalizarBol(boletimDAO.getBoletimApont().getDthrInicialBoletim(), getEscalaTrab(getColabApont().getIdEscalaTrabColab()).getHorarioSaiEscalaTrab());
-        boletimDAO.fecharBoletim(boletimDAO.getBoletimApont(), dthrFinal);
-        apontDAO.fecharApont(getUltApont(), dthrFinal);
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        String dthrFinal = Tempo.getInstance().dataFinalizarBol(boletimIndDAO.getBoletimApont().getDthrInicialBoletim(), getEscalaTrab(getColabApont().getIdEscalaTrabColab()).getHorarioSaiEscalaTrab());
+        boletimIndDAO.fecharBoletim(boletimIndDAO.getBoletimApont(), dthrFinal);
+        apontIndDAO.fecharApont(getUltApont(), dthrFinal);
     }
 
     public void finalizarApont(){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        ApontDAO apontDAO = new ApontDAO();
-        apontDAO.finalizarApont(apontDAO.apontList(boletimDAO.getBoletimApont().getIdBoletim()).get(0));
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        apontIndDAO.finalizarApont(apontIndDAO.apontList(boletimIndDAO.getBoletimApont().getIdBoletim()).get(0));
     }
 
     public void interroperApont(){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        ApontDAO apontDAO = new ApontDAO();
-        apontDAO.interroperApont(apontDAO.apontList(boletimDAO.getBoletimApont().getIdBoletim()).get(0));
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        apontIndDAO.interroperApont(apontIndDAO.apontList(boletimIndDAO.getBoletimApont().getIdBoletim()).get(0));
     }
 
     public void delBolSApont() {
 
-        BoletimDAO boletimDAO = new BoletimDAO();
-        ApontDAO apontDAO = new ApontDAO();
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
 
-        List<BoletimBean> boletimList = boletimDAO.boletimAllList();
+        List<BoletimIndBean> boletimList = boletimIndDAO.boletimAllList();
 
-        for(BoletimBean boletimBean : boletimList){
-            if(!apontDAO.verApont(boletimBean.getIdBoletim())){
-                boletimDAO.delBoletim(boletimBean);
+        for(BoletimIndBean boletimIndBean : boletimList){
+            if(!apontIndDAO.verApont(boletimIndBean.getIdBoletim())){
+                boletimIndDAO.delBoletim(boletimIndBean);
             }
         }
 
@@ -168,9 +165,9 @@ public class MecanicoCTR {
 
     ////////////////////////////////////// GET DADOS /////////////////////////////////////////////
 
-    public BoletimBean getBoletimApont(){
-        BoletimDAO boletimDAO = new BoletimDAO();
-        return boletimDAO.getBoletimApont();
+    public BoletimIndBean getBoletimApont(){
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        return boletimIndDAO.getBoletimApont();
     }
 
     public EscalaTrabBean getEscalaTrab(Long idEscalaTrab){
@@ -188,45 +185,50 @@ public class MecanicoCTR {
         return colabDAO.getIdColab(getBoletimApont().getIdFuncBoletim());
     }
 
-    public List<ApontBean> apontBolApontList(){
-        ApontDAO apontDAO = new ApontDAO();
-        return apontDAO.apontList(getBoletimApont().getIdBoletim());
+    public List<ApontIndBean> apontBolApontList(){
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        return apontIndDAO.apontList(getBoletimApont().getIdBoletim());
     }
 
-    public ApontBean getUltApont(){
-        List<ApontBean> apontList = apontBolApontList();
-        ApontBean apontBean = apontList.get(0);
+    public ApontIndBean getUltApont(){
+        List<ApontIndBean> apontList = apontBolApontList();
+        ApontIndBean apontIndBean = apontList.get(0);
         apontList.clear();
-        return apontBean;
+        return apontIndBean;
     }
 
-    public ApontBean getApontBean() {
-        return apontBean;
+    public ApontIndBean getApontIndBean() {
+        return apontIndBean;
     }
 
     public OSBean getOS(){
         OSDAO osDAO = new OSDAO();
-        return osDAO.getOS(apontBean.getOsApont());
+        Log.i("PBI", "OS = " + apontIndBean.getOsApont());
+        return osDAO.getOS(apontIndBean.getOsApont());
     }
 
-    public ServicoBean getServico(Long idServItemOS){
-        ServicoDAO servicoDAO = new ServicoDAO();
-        return servicoDAO.getServico(idServItemOS);
+    public List<ApontIndBean> apontList(){
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        return apontIndDAO.apontList(getBoletimApont().getIdBoletim());
     }
 
-    public ComponenteBean getComponente(Long idCompItemOS){
-        ComponenteDAO componenteDAO = new ComponenteDAO();
-        return componenteDAO.getComponente(idCompItemOS);
-    }
-
-    public List<ApontBean> apontList(){
-        ApontDAO apontDAO = new ApontDAO();
-        return apontDAO.apontList(getBoletimApont().getIdBoletim());
-    }
-
-    public List<ItemOSBean> itemOSList(){
+    public ArrayList<ItemOSBean> itemOSList(){
+        ArrayList<ItemOSBean> itemOSArrayList = new ArrayList<>();
         ItemOSDAO itemOSDAO = new ItemOSDAO();
-        return itemOSDAO.itemOSList(getOS().getIdOS());
+        List<ItemOSBean> itemOSList = itemOSDAO.itemOSList(getOS().getIdOS());
+        if(getOS().getTipoOS() == 2L){
+            for(ItemOSBean itemOSBean : itemOSList){
+                if(itemOSBean.getIdOficSecaoItemOS() == getColabApont().getIdOficSecaoColab()){
+                    itemOSArrayList.add(itemOSBean);
+                }
+            }
+        }
+        else if(getOS().getTipoOS() == 22L){
+            for(ItemOSBean itemOSBean : itemOSList){
+                itemOSArrayList.add(itemOSBean);
+            }
+        }
+        return itemOSArrayList;
     }
 
     public List<ParadaBean> paradaList(){
@@ -253,17 +255,17 @@ public class MecanicoCTR {
 
     ////////////////////////////////////// SET DADOS /////////////////////////////////////////////
 
-    public void setApontBean(ApontBean apontBean) {
-        this.apontBean = apontBean;
+    public void setApontIndBean(ApontIndBean apontIndBean) {
+        this.apontIndBean = apontIndBean;
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////// VERIFICAÇÃO E ATUALIZAÇÃO DE DADOS POR SERVIDOR /////////////////////
 
-    public void verOS(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
+    public void verOS(String dados, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
         OSDAO osDAO = new OSDAO();
-        osDAO.verOS(dado, telaAtual, telaProx, progressDialog);
+        osDAO.verOS(dados, telaAtual, telaProx, progressDialog);
     }
 
     public void atualDadosColab(Context telaAtual, Class telaProx, ProgressDialog progressDialog){
@@ -301,11 +303,10 @@ public class MecanicoCTR {
                     OSDAO osDAO = new OSDAO();
                     osDAO.deleteAllOS();
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject objeto = jsonArray.getJSONObject(i);
-                        Gson gson = new Gson();
-                        osDAO.insertOS(gson.fromJson(objeto.toString(), OSBean.class));
-                    }
+                    Gson gson = new Gson();
+
+                    JSONObject osObj = jsonArray.getJSONObject(0);
+                    osDAO.insertOS(gson.fromJson(osObj.toString(), OSBean.class));
 
                     jObj = new JSONObject(objSeg);
                     jsonArray = jObj.getJSONArray("dados");
@@ -314,14 +315,32 @@ public class MecanicoCTR {
                     itemOSDAO.deleteAllItemOS();
 
                     for (int j = 0; j < jsonArray.length(); j++) {
-
-                        JSONObject objeto = jsonArray.getJSONObject(j);
-                        Gson gson = new Gson();
-                        itemOSDAO.insertItemOS(gson.fromJson(objeto.toString(), ItemOSBean.class));
-
+                        JSONObject itemOSObj = jsonArray.getJSONObject(j);
+                        itemOSDAO.insertItemOS(gson.fromJson(itemOSObj.toString(), ItemOSBean.class));
                     }
 
-                    VerifDadosServ.getInstance().pulaTelaComTerm();
+                    ConfigCTR configCTR = new ConfigCTR();
+                    OSBean osBean = gson.fromJson(osObj.toString(), OSBean.class);
+
+                    boolean ver = false;
+
+                    if((configCTR.getColab().getFlagApontMecanColab() == 1L)
+                        && (osBean.getTipoOS() == 2L)){
+                        ver = true;
+                    }
+
+                    if((configCTR.getColab().getFlagApontIndColab() == 1L)
+                            && (osBean.getTipoOS() == 22L)){
+                        ver = true;
+                    }
+
+                    if(ver){
+                        VerifDadosServ.getInstance().pulaTelaComTerm();
+                    }
+                    else{
+                        VerifDadosServ.getInstance().msgComTerm("OS INVÁLIDA PARA O USUÁRIO.");
+                    }
+
 
                 } else {
                     VerifDadosServ.getInstance().msgComTerm("NÃO EXISTE O.S. PARA ESSE COLABORADOR! POR FAVOR, ENTRE EM CONTATO COM A AREA QUE CRIA O.S. PARA APONTAMENTO.");
@@ -332,6 +351,7 @@ public class MecanicoCTR {
             }
 
         } catch (Exception e) {
+            Log.e("PBI", "ERRO = " + e);
             VerifDadosServ.getInstance().msgComTerm("FALHA DE PESQUISA DE OS! POR FAVOR, TENTAR NOVAMENTE COM UM SINAL MELHOR.");
         }
 
@@ -359,13 +379,13 @@ public class MecanicoCTR {
                     JSONObject objeto = boletimJsonArray.getJSONObject(i);
                     Gson gson = new Gson();
 
-                    BoletimBean boletimBean = gson.fromJson(objeto.toString(), BoletimBean.class);
+                    BoletimIndBean boletimIndBean = gson.fromJson(objeto.toString(), BoletimIndBean.class);
 
-                    BoletimDAO boletimDAO = new BoletimDAO();
-                    boletimDAO.atualIdExtBol(boletimBean);
+                    BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+                    boletimIndDAO.atualIdExtBol(boletimIndBean);
 
-                    ApontDAO apontDAO = new ApontDAO();
-                    apontDAO.updApontIdExtBoletim(boletimBean.getIdBoletim(), boletimBean.getIdExtBoletim());
+                    ApontIndDAO apontIndDAO = new ApontIndDAO();
+                    apontIndDAO.updApontIdExtBoletim(boletimIndBean.getIdBoletim(), boletimIndBean.getIdExtBoletim());
 
                 }
 
@@ -374,10 +394,10 @@ public class MecanicoCTR {
                     JSONObject objeto = apontJsonArray.getJSONObject(i);
                     Gson gson = new Gson();
 
-                    ApontBean apontBean = gson.fromJson(objeto.toString(), ApontBean.class);
+                    ApontIndBean apontIndBean = gson.fromJson(objeto.toString(), ApontIndBean.class);
 
-                    ApontDAO apontDAO = new ApontDAO();
-                    apontDAO.updApontEnviado(apontBean.getIdApont(), apontBean.getIdBolApont());
+                    ApontIndDAO apontIndDAO = new ApontIndDAO();
+                    apontIndDAO.updApontEnviado(apontIndBean.getIdApont(), apontIndBean.getIdBolApont());
 
                 }
 
@@ -408,13 +428,13 @@ public class MecanicoCTR {
                     JSONObject objeto = jsonArray.getJSONObject(i);
                     Gson gson = new Gson();
 
-                    BoletimBean boletimBean = gson.fromJson(objeto.toString(), BoletimBean.class);
+                    BoletimIndBean boletimIndBean = gson.fromJson(objeto.toString(), BoletimIndBean.class);
 
-                    BoletimDAO boletimDAO = new BoletimDAO();
-                    boletimDAO.delBoletim(boletimBean);
+                    BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+                    boletimIndDAO.delBoletim(boletimIndBean);
 
-                    ApontDAO apontDAO = new ApontDAO();
-                    apontDAO.delApont(boletimBean.getIdBoletim());
+                    ApontIndDAO apontIndDAO = new ApontIndDAO();
+                    apontIndDAO.delApont(boletimIndBean.getIdBoletim());
 
                 }
 
@@ -443,8 +463,8 @@ public class MecanicoCTR {
                     JSONObject objeto = jsonArray.getJSONObject(i);
                     Gson gson = new Gson();
 
-                    ApontDAO apontDAO = new ApontDAO();
-                    apontDAO.updApont(gson.fromJson(objeto.toString(), ApontBean.class));
+                    ApontIndDAO apontIndDAO = new ApontIndDAO();
+                    apontIndDAO.updApont(gson.fromJson(objeto.toString(), ApontIndBean.class));
 
                 }
 
@@ -462,11 +482,11 @@ public class MecanicoCTR {
 
     public String dadosEnvioBolFechado() {
 
-        BoletimDAO boletimDAO = new BoletimDAO();
-        String dadosBoletim = boletimDAO.dadosBolFechado();
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        String dadosBoletim = boletimIndDAO.dadosBolFechado();
 
-        ApontDAO apontDAO = new ApontDAO();
-        String dadosApont = apontDAO.dadosEnvioApont(boletimDAO.idBolFechadoList());
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
+        String dadosApont = apontIndDAO.dadosEnvioApont(boletimIndDAO.idBolFechadoList());
 
         return dadosBoletim + "_" + dadosApont;
 
@@ -474,11 +494,11 @@ public class MecanicoCTR {
 
     public String dadosEnvioBolSemEnvio() {
 
-        BoletimDAO boletimDAO = new BoletimDAO();
-        ApontDAO apontDAO = new ApontDAO();
+        BoletimIndDAO boletimIndDAO = new BoletimIndDAO();
+        ApontIndDAO apontIndDAO = new ApontIndDAO();
 
-        String dadosBoletim = boletimDAO.dadosBolAbertoSemEnvio(apontDAO.idBolAbertoList());
-        String dadosApont = apontDAO.dadosEnvioApont(apontDAO.idBolAbertoList());
+        String dadosBoletim = boletimIndDAO.dadosBolAbertoSemEnvio(apontIndDAO.idBolAbertoList());
+        String dadosApont = apontIndDAO.dadosEnvioApont(apontIndDAO.idBolAbertoList());
 
         return dadosBoletim + "_" + dadosApont;
 

@@ -3,8 +3,17 @@ package br.com.usinasantafe.pbi.model.dao;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
+import br.com.usinasantafe.pbi.model.bean.estaticas.ColabBean;
+import br.com.usinasantafe.pbi.model.bean.estaticas.ItemOSBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pbi.util.VerifDadosServ;
 
@@ -32,8 +41,8 @@ public class OSDAO {
         return osBean.get("nroOS", nroOS);
     }
 
-    public void verOS(String dado, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
-        VerifDadosServ.getInstance().verDados(dado, "OS", telaAtual, telaProx, progressDialog);
+    public void verOS(String dados, Context telaAtual, Class telaProx, ProgressDialog progressDialog){
+        VerifDadosServ.getInstance().verDados(dados, "OS", telaAtual, telaProx, progressDialog);
     }
 
     public void deleteAllOS(){

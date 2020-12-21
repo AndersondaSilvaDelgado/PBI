@@ -32,8 +32,8 @@ public class QtdeProdActivity extends ActivityGeneric {
 
                     if (Long.parseLong(editTextPadrao.getText().toString()) < 1000) {
 
-                        pbiContext.getReqProdutoCTR().getReqProdutoBean().setQtdeReqProd(Long.parseLong(editTextPadrao.getText().toString()));
-                        pbiContext.getReqProdutoCTR().insertReqProduto();
+                        pbiContext.getReqProdutoCTR().getItemReqProdBean().setQtdeItemReqProd(Double.parseDouble(editTextPadrao.getText().toString()));
+//                        pbiContext.getReqProdutoCTR().insertReqProduto();
 
                         Intent it = new Intent(QtdeProdActivity.this, MenuInicialActivity.class);
                         startActivity(it);

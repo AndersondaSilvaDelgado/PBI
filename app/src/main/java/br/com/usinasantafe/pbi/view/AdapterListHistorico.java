@@ -13,7 +13,7 @@ import java.util.List;
 import br.com.usinasantafe.pbi.R;
 import br.com.usinasantafe.pbi.control.MecanicoCTR;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ParadaBean;
-import br.com.usinasantafe.pbi.model.bean.variaveis.ApontBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
 import br.com.usinasantafe.pbi.util.Tempo;
 
 /**
@@ -53,19 +53,24 @@ public class AdapterListHistorico extends BaseAdapter {
         TextView textViewHistHrInicial = (TextView) view.findViewById(R.id.textViewHistHrInicial);
         TextView textViewHistHrFinal = (TextView) view.findViewById(R.id.textViewHistHrFinal);
 
-        ApontBean apontBean = (ApontBean) itens.get(position);
+        ApontIndBean apontIndBean = (ApontIndBean) itens.get(position);
 
-        textViewHistHrInicial.setText("HORÁRIO INICIAL: " + Tempo.getInstance().manipDHComTZ(apontBean.getDthrInicialApont()));
-        textViewHistHrFinal.setText("HORÁRIO FINAL: " + Tempo.getInstance().manipDHComTZ(apontBean.getDthrFinalApont()));
+        textViewHistHrInicial.setText("HORÁRIO INICIAL: " + Tempo.getInstance().manipDHComTZ(apontIndBean.getDthrInicialApont()));
+    if(!apontIndBean.getDthrFinalApont().equals("")){
+            textViewHistHrFinal.setText("HORÁRIO FINAL: " + Tempo.getInstance().manipDHComTZ(apontIndBean.getDthrFinalApont()));
+        }
+        else{
+            textViewHistHrFinal.setText("HORÁRIO FINAL: ");
+        }
 
-        if(apontBean.getParadaApont() == 0) {
-            textViewHistApont.setText("TRABALHANDO: OS " + apontBean.getOsApont() + " - ITEM " + apontBean.getItemOSApont());
+        if(apontIndBean.getParadaApont() == 0) {
+            textViewHistApont.setText("TRABALHANDO: OS " + apontIndBean.getOsApont() + " - ITEM " + apontIndBean.getItemOSApont());
             textViewHistApont.setTextColor(Color.BLUE);
         }
         else{
 
             MecanicoCTR mecanicoCTR = new MecanicoCTR();
-            ParadaBean paradaBean = mecanicoCTR.getParadaId(apontBean.getParadaApont());
+            ParadaBean paradaBean = mecanicoCTR.getParadaId(apontIndBean.getParadaApont());
             textViewHistApont.setText("PARADA: " + paradaBean.getCodParada() + " - " + paradaBean.getDescrParada());
             textViewHistApont.setTextColor(Color.RED);
         }

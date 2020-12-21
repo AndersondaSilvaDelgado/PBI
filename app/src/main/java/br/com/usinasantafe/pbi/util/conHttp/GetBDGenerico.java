@@ -45,6 +45,7 @@ public class GetBDGenerico extends AsyncTask<String, Void, String> {
                 String campo = field.getName();
                 if(campo.equals(tipo)){
                 	url = "" + retClasse.getField(campo).get(o);
+					Log.i("PMM", "URL = " + url);
                }
             }
 

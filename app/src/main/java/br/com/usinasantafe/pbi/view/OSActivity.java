@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
-import br.com.usinasantafe.pbi.model.bean.variaveis.ApontBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
 import br.com.usinasantafe.pbi.util.ConexaoWeb;
 import br.com.usinasantafe.pbi.util.VerifDadosServ;
 
@@ -38,11 +38,11 @@ public class OSActivity extends ActivityGeneric {
                 if (!editTextPadrao.getText().toString().equals("")) {
 
                     if(pbiContext.getVerTela() == 3) {
-                        pbiContext.getMecanicoCTR().setApontBean(new ApontBean());
-                        pbiContext.getMecanicoCTR().getApontBean().setOsApont(Long.parseLong(editTextPadrao.getText().toString()));
+                        pbiContext.getMecanicoCTR().setApontIndBean(new ApontIndBean());
+                        pbiContext.getMecanicoCTR().getApontIndBean().setOsApont(Long.parseLong(editTextPadrao.getText().toString()));
                     }
                     else if(pbiContext.getVerTela() == 4) {
-                        pbiContext.getReqProdutoCTR().getReqProdutoBean().setOsReqProd(Long.parseLong(editTextPadrao.getText().toString()));
+                        pbiContext.getReqProdutoCTR().getCabecReqProdBean().setNroOSCabecReqProd(Long.parseLong(editTextPadrao.getText().toString()));
                     }
 
                     try {
@@ -66,7 +66,7 @@ public class OSActivity extends ActivityGeneric {
 
                                 customHandler.postDelayed(updateTimerThread, 10000);
 
-                                pbiContext.getMecanicoCTR().verOS(editTextPadrao.getText().toString()
+                                pbiContext.getMecanicoCTR().verOS(editTextPadrao.getText().toString().trim()
                                         , OSActivity.this, ItemOSListaActivity.class, progressBar);
 
                             } else {

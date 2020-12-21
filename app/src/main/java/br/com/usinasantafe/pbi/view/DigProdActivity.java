@@ -92,11 +92,37 @@ public class DigProdActivity extends ActivityGeneric {
 
                     if (pbiContext.getReqProdutoCTR().verProduto(editTextPadrao.getText().toString())) {
 
-                        pbiContext.getReqProdutoCTR().getProduto(editTextPadrao.getText().toString());
+                        pbiContext.getReqProdutoCTR().setItemReqProduto(pbiContext.getReqProdutoCTR().getProduto(editTextPadrao.getText().toString()).getIdProduto());
 
-                        Intent it = new Intent(DigProdActivity.this, QtdeProdActivity.class);
-                        startActivity(it);
-                        finish();
+                        if(pbiContext.getReqProdutoCTR().verQtdeEmbProd()){
+
+                            pbiContext.getReqProdutoCTR().setIdEmbProdReqProduto();
+
+                            if(pbiContext.getReqProdutoCTR().verQtdeLocalProd()){
+
+                                pbiContext.getReqProdutoCTR().setIdLocalProdReqProduto();
+
+                                Intent it = new Intent(DigProdActivity.this, QtdeProdActivity.class);
+                                startActivity(it);
+                                finish();
+
+                            }
+                            else{
+
+                                Intent it = new Intent(DigProdActivity.this, ListaLocalActivity.class);
+                                startActivity(it);
+                                finish();
+
+                            }
+
+                        }
+                        else{
+
+                            Intent it = new Intent(DigProdActivity.this, ListaEmbalagemActivity.class);
+                            startActivity(it);
+                            finish();
+
+                        }
 
                     } else {
 

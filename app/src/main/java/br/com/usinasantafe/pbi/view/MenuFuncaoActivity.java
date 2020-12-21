@@ -40,11 +40,17 @@ public class MenuFuncaoActivity extends ActivityGeneric {
 
         ArrayList<String> itens = new ArrayList<String>();
 
-        itens.add("APONTAMENTO");
-        itens.add("FINALIZAR/INTERROPER");
-        itens.add("FINALIZAR TURNO");
-        itens.add("REQUISITAR PRODUTO");
-        itens.add("HISTÓRICO");
+        if((pbiContext.getConfigCTR().getColab().getFlagApontIndColab() > 0L)
+            || (pbiContext.getConfigCTR().getColab().getFlagApontIndColab() > 0L) ){
+            itens.add("APONTAMENTO");
+            itens.add("FINALIZAR/INTERROPER");
+            itens.add("FINALIZAR TURNO");
+            itens.add("HISTÓRICO");
+        }
+
+        if(pbiContext.getConfigCTR().getColab().getFlagSolicColab() == 1L){
+            itens.add("REQUISITAR PRODUTO");
+        }
 
         AdapterList adapterList = new AdapterList(this, itens);
         menuFuncaoListView = (ListView) findViewById(R.id.listViewMenuFuncao);
@@ -78,7 +84,7 @@ public class MenuFuncaoActivity extends ActivityGeneric {
                         }
                     } else {
 
-                        if(Tempo.getInstance().verifDataHoraFechBoletim(pbiContext.getMecanicoCTR().getUltApont().getDthrInicialApont())) {
+//                        if(Tempo.getInstance().verifDataHoraFechBoletim(pbiContext.getMecanicoCTR().getUltApont().getDthrInicialApont())) {
 
                             if (pbiContext.getMecanicoCTR().getUltApont().getDthrInicialApont().equals(Tempo.getInstance().dataHora())) {
                                 Toast.makeText(MenuFuncaoActivity.this, "POR FAVOR! ESPERE 1 MINUTO PARA REALIZAR UM NOVO APONTAMENTO.",
@@ -86,11 +92,13 @@ public class MenuFuncaoActivity extends ActivityGeneric {
                             } else {
 
                                 if (pbiContext.getMecanicoCTR().getUltApont().getDthrFinalApont().equals("")) {
+                                    pbiContext.setVerTela(3);
                                     it = new Intent(MenuFuncaoActivity.this, OSActivity.class);
                                     startActivity(it);
                                     finish();
                                 } else {
                                     if (Tempo.getInstance().verifDataHoraParada(pbiContext.getMecanicoCTR().getUltApont().getDthrFinalApont())) {
+                                        pbiContext.setVerTela(3);
                                         it = new Intent(MenuFuncaoActivity.this, OSActivity.class);
                                         startActivity(it);
                                         finish();
@@ -103,29 +111,6 @@ public class MenuFuncaoActivity extends ActivityGeneric {
                                 }
 
                             }
-
-                        }
-                        else{
-
-                            AlertDialog.Builder alerta = new AlertDialog.Builder(MenuFuncaoActivity.this);
-                            alerta.setTitle("ATENÇÃO");
-                            alerta.setMessage("O BOLETIM SERÁ ENCERRADO POR FALTA DE ENCERRAMENTO DO TURNO ANTERIOR!");
-                            alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    pbiContext.getMecanicoCTR().forcarFechBoletim();
-
-                                    Intent it = new Intent(MenuFuncaoActivity.this, MenuInicialActivity.class);
-                                    startActivity(it);
-                                    finish();
-
-                                }
-                            });
-
-                            alerta.show();
-
-                        }
 
                     }
 
@@ -273,7 +258,7 @@ public class MenuFuncaoActivity extends ActivityGeneric {
 
                 } else if (text.equals("REQUISITAR PRODUTO")) {
 
-                    pbiContext.getReqProdutoCTR().setReqProdutoBean();
+                    pbiContext.getReqProdutoCTR().setCabecReqProduto();
                     pbiContext.setVerTela(4);
                     Intent it = new Intent(MenuFuncaoActivity.this, OSActivity.class);
                     startActivity(it);

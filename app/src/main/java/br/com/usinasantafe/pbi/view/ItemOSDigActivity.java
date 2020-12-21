@@ -34,7 +34,7 @@ public class ItemOSDigActivity extends ActivityGeneric {
 
                         if(pbiContext.getVerTela() == 3) {
 
-                            pbiContext.getMecanicoCTR().getApontBean().setItemOSApont(Long.parseLong(editTextPadrao.getText().toString()));
+                            pbiContext.getMecanicoCTR().getApontIndBean().setItemOSApont(Long.parseLong(editTextPadrao.getText().toString()));
                             pbiContext.getMecanicoCTR().salvarApont();
 
                             Intent it = new Intent(ItemOSDigActivity.this, MenuInicialActivity.class);
@@ -45,9 +45,9 @@ public class ItemOSDigActivity extends ActivityGeneric {
                         else if(pbiContext.getVerTela() == 4) {
 
                             pbiContext.setVerTela(6);
-                            pbiContext.getReqProdutoCTR().getReqProdutoBean().setItemOSReqProd(Long.parseLong(editTextPadrao.getText().toString()));
+                            pbiContext.getReqProdutoCTR().salvarCabecReqProd(Long.parseLong(editTextPadrao.getText().toString()));
 
-                            Intent it = new Intent(ItemOSDigActivity.this, LeitorProdActivity.class);
+                            Intent it = new Intent(ItemOSDigActivity.this, ListaProdutoActivity.class);
                             startActivity(it);
                             finish();
 

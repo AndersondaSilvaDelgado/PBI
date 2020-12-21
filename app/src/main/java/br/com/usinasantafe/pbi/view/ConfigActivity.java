@@ -18,7 +18,7 @@ import br.com.usinasantafe.pbi.util.AtualDadosServ;
 public class ConfigActivity extends ActivityGeneric {
 
     private ProgressDialog progressBar;
-    private EditText editTextEquipConfig;
+    private EditText editTextNroAparelConfig;
     private EditText editTextSenhaConfig;
     private PBIContext pbiContext;
 
@@ -32,11 +32,11 @@ public class ConfigActivity extends ActivityGeneric {
         Button btOkConfig = (Button) findViewById(R.id.buttonSalvarConfig);
         Button btCancConfig = (Button) findViewById(R.id.buttonCancConfig);
         Button btAtualBDConfig = (Button) findViewById(R.id.buttonAtualizarBD);
-        editTextEquipConfig = (EditText) findViewById(R.id.editTextEquipConfig);
+        editTextNroAparelConfig = (EditText) findViewById(R.id.editTextNroAparelConfig);
         editTextSenhaConfig = (EditText) findViewById(R.id.editTextSenhaConfig);
 
         if (pbiContext.getConfigCTR().hasElements()) {
-            editTextEquipConfig.setText(String.valueOf(pbiContext.getConfigCTR().getEquip().getNroEquip()));
+            editTextNroAparelConfig.setText(String.valueOf(pbiContext.getConfigCTR().getConfig().getAparelhoConfig()));
             editTextSenhaConfig.setText(pbiContext.getConfigCTR().getConfig().getSenhaConfig());
         }
 
@@ -45,32 +45,14 @@ public class ConfigActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-                if (!editTextEquipConfig.getText().toString().equals("") &&
+                if (!editTextNroAparelConfig.getText().toString().equals("") &&
                         !editTextSenhaConfig.getText().toString().equals("")) {
 
-                    Long nroEquip = Long.parseLong(editTextEquipConfig.getText().toString());
+                    pbiContext.getConfigCTR().insertConfig(Long.parseLong(editTextNroAparelConfig.getText().toString()), editTextSenhaConfig.getText().toString());
 
-                    if (pbiContext.getConfigCTR().verNroEquip(nroEquip)) {
-
-                        pbiContext.getConfigCTR().insertConfig(pbiContext.getConfigCTR().getEquip(nroEquip).getIdEquip(), editTextSenhaConfig.getText().toString());
-
-                        Intent it = new Intent(ConfigActivity.this, MenuInicialActivity.class);
-                        startActivity(it);
-                        finish();
-
-                    } else {
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(ConfigActivity.this);
-                        alerta.setTitle("ATENÇÃO");
-                        alerta.setMessage("EQUIPAMENTO INEXISTENTE! POR FAVOR, VERIFIQUE A NUMERAÇÃO DO MESMO.");
-                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-
-                        alerta.show();
-                    }
+                    Intent it = new Intent(ConfigActivity.this, MenuInicialActivity.class);
+                    startActivity(it);
+                    finish();
 
                 }
 
@@ -95,6 +77,7 @@ public class ConfigActivity extends ActivityGeneric {
                 ConexaoWeb conexaoWeb = new ConexaoWeb();
 
                 if (conexaoWeb.verificaConexao(ConfigActivity.this)) {
+
                     progressBar = new ProgressDialog(v.getContext());
                     progressBar.setCancelable(true);
                     progressBar.setMessage("ATUALIZANDO ...");
@@ -102,8 +85,9 @@ public class ConfigActivity extends ActivityGeneric {
                     progressBar.setProgress(0);
                     progressBar.setMax(100);
                     progressBar.show();
-                    AtualDadosServ.getInstance().setTelaAtual(ConfigActivity.this);
-                    AtualDadosServ.getInstance().atualizarBD(progressBar);
+
+                    pbiContext.getConfigCTR().atualTodasTabelas(ConfigActivity.this, progressBar);
+
                 } else {
                     AlertDialog.Builder alerta = new AlertDialog.Builder(ConfigActivity.this);
                     alerta.setTitle("ATENÇÃO");

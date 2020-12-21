@@ -15,10 +15,13 @@ public class UrlsConexaoHttp {
     public static String put = "?versao=" + PBIContext.versaoAplic.replace(".", "_");
 
     public static String ColabBean = urlPrincipal + "colab.php" + put;
-    public static String ComponenteBean = urlPrincipal + "componente.php" + put;
+    public static String DepositoBean = urlPrincipal + "deposito.php" + put;
+//    public static String DepProdBean = urlPrincipal + "depprod.php" + put;
+//    public static String EmbalagemBean = urlPrincipal + "embalagem.php" + put;
+//    public static String EmbalProdBean = urlPrincipal + "embalprod.php" + put;
     public static String EscalaTrabBean = urlPrincipal + "escalatrab.php" + put;
     public static String ParadaBean = urlPrincipal + "parada.php" + put;
-    public static String ServicoBean = urlPrincipal + "servico.php" + put;
+//    public static String ProdutoBean = urlPrincipal + "produto.php" + put;
 
     public UrlsConexaoHttp() {
     }
@@ -37,9 +40,7 @@ public class UrlsConexaoHttp {
 
     public String urlVerifica(String classe) {
         String retorno = "";
-        if (classe.equals("Equip")) {
-            retorno = urlPrincipal + "verequip.php" + put;
-        } else if (classe.equals("Atualiza")) {
+        if (classe.equals("Atualiza")) {
             retorno = urlPrincipal + "atualaplic.php" + put;
         } else if (classe.equals("OS")) {
             retorno = urlPrincipal + "os.php" + put;

@@ -66,7 +66,7 @@ public class VerifDadosServ {
                         atualizarAplicativo.setContext(this.menuInicialActivity);
                         atualizarAplicativo.execute();
                     } else {
-//                        this.menuInicialActivity.startTimer(verAtual);
+                        this.menuInicialActivity.startTimer(verAtual);
                     }
 
                 }
@@ -125,7 +125,7 @@ public class VerifDadosServ {
 
         ConfigCTR configCTR = new ConfigCTR();
 
-        atualAplicBean.setIdEquipAtual(configCTR.getConfig().getAparelhoConfig());
+        atualAplicBean.setNroAparelhoAtual(configCTR.getConfig().getAparelhoConfig());
 
         JsonArray jsonArray = new JsonArray();
 

@@ -76,7 +76,7 @@ public class MenuInicialActivity extends ActivityGeneric {
 
         }
         else{
-            startTimer("OFF");
+            startTimer("NAO");
         }
 
         clearBD();
@@ -136,7 +136,6 @@ public class MenuInicialActivity extends ActivityGeneric {
 
     }
 
-
     public boolean checkPermission(String permission){
         int check = ContextCompat.checkSelfPermission(this, permission);
         return (check == PackageManager.PERMISSION_GRANTED);
@@ -150,7 +149,7 @@ public class MenuInicialActivity extends ActivityGeneric {
         Intent intent = new Intent(this, ReceberAlarme.class);
         boolean alarmeAtivo = (PendingIntent.getBroadcast(this, 0, new Intent("ALARME_DISPARADO"), PendingIntent.FLAG_NO_CREATE) == null);
 
-        if(!retorno.equals("OFF")){
+        if(!retorno.equals("NAO")){
 
             int pos1 = retorno.indexOf("=") + 1;
             String parametros = retorno.substring(pos1);

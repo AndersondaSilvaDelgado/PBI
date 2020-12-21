@@ -1,8 +1,13 @@
 package br.com.usinasantafe.pbi.control;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
+import br.com.usinasantafe.pbi.model.bean.estaticas.ColabBean;
 import br.com.usinasantafe.pbi.model.bean.variaveis.ConfigBean;
+import br.com.usinasantafe.pbi.model.dao.ColabDAO;
 import br.com.usinasantafe.pbi.model.dao.ConfigDAO;
-import br.com.usinasantafe.pbi.model.dao.EquipDAO;
+import br.com.usinasantafe.pbi.util.AtualDadosServ;
 
 public class ConfigCTR {
 
@@ -24,9 +29,9 @@ public class ConfigCTR {
         return configDAO.getConfig();
     }
 
-    public boolean verNroEquip(Long nroEquip){
-        EquipDAO equipDAO = new EquipDAO();
-        return equipDAO.verNroEquip(nroEquip);
+    public ColabBean getColab(){
+        ColabDAO colabDAO = new ColabDAO();
+        return colabDAO.getMatricColab(getConfig().getMatricFuncConfig());
     }
 
     public void insertConfig(Long idEquip, String senha){
@@ -37,6 +42,10 @@ public class ConfigCTR {
     public void matricFuncConfig(Long matricFunc){
         ConfigDAO configDAO = new ConfigDAO();
         configDAO.matricFuncConfig(matricFunc);
+    }
+
+    public void atualTodasTabelas(Context context, ProgressDialog progressDialog){
+        AtualDadosServ.getInstance().atualTodasTabelas(progressDialog, context);
     }
 
 }

@@ -11,34 +11,35 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
-import br.com.usinasantafe.pbi.model.bean.estaticas.ItemOSBean;
+import br.com.usinasantafe.pbi.model.bean.estaticas.EmbalProdBean;
 import br.com.usinasantafe.pbi.util.ConexaoWeb;
 
-public class ItemOSListaActivity extends ActivityGeneric {
+public class ListaEmbalagemActivity extends ActivityGeneric {
 
-    private ListView itemOSListView;
-    private ArrayList<ItemOSBean> itemOSList;
+    private ListView embalagemListView;
+    private List<EmbalProdBean> embalProdList;
     private PBIContext pbiContext;
     private ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_os_lista);
+        setContentView(R.layout.activity_lista_embalagem);
 
         pbiContext = (PBIContext) getApplication();
 
         Button buttonRetItemOS = (Button) findViewById(R.id.buttonRetItemOS);
         Button buttonAtualItemOS = (Button) findViewById(R.id.buttonAtualItemOS);
 
-        itemOSList = pbiContext.getMecanicoCTR().itemOSList();
+        embalProdList = pbiContext.getReqProdutoCTR().embalProdList();
         ArrayList<String> itens = new ArrayList<String>();
 
-        for(ItemOSBean itemOSBean : itemOSList){
-            itens.add(String.valueOf(itemOSBean.getSeqItemOS()));
+        for(EmbalProdBean embalProdBean : embalProdList){
+            itens.add(pbiContext.getReqProdutoCTR().getEmbalagem(embalProdBean.getIdEmbal()).getSgEmbalagem());
         }
 
         buttonAtualItemOS.setOnClickListener(new View.OnClickListener() {

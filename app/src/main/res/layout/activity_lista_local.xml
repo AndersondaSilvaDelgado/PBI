@@ -9,30 +9,30 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.ItemOSListaActivity">
+    tools:context=".view.ListaLocalActivity">
+
 
     <TextView
-        android:id="@+id/textViewTituloItemOS"
+        android:id="@+id/textViewLocal"
         style="@style/TextViewTituloLista"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/texto_item_os" />
+        android:text="@string/texto_titulo_local" />
 
     <ListView
-        android:id="@+id/listItemOS"
+        android:id="@+id/listaLocal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        />
 
     <Button
-        android:id="@+id/buttonAtualItemOS"
+        android:id="@+id/buttonAtualLocal"
         style="@style/BotaoAvulso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/texto_atualizar_bd" />
 
     <Button
-        android:id="@+id/buttonRetItemOS"
+        android:id="@+id/buttonRetLocal"
         style="@style/BotaoAvulso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

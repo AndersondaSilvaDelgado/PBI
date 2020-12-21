@@ -7,8 +7,10 @@ import android.util.Log;
 
 import java.util.List;
 
-import br.com.usinasantafe.pbi.model.bean.variaveis.ApontBean;
-import br.com.usinasantafe.pbi.model.bean.variaveis.BoletimBean;
+import br.com.usinasantafe.pbi.model.bean.estaticas.ItemOSBean;
+import br.com.usinasantafe.pbi.model.bean.estaticas.OSBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.BoletimIndBean;
 import br.com.usinasantafe.pbi.model.pst.DatabaseHelper;
 import br.com.usinasantafe.pbi.util.EnvioDadosServ;
 import br.com.usinasantafe.pbi.util.Tempo;
@@ -34,31 +36,31 @@ public class ReceberAlarme extends BroadcastReceiver {
 
 	public void teste() {
 
-		BoletimBean boletimBean = new BoletimBean();
-		List boletimList = boletimBean.all();
+		BoletimIndBean boletimIndBean = new BoletimIndBean();
+		List boletimList = boletimIndBean.all();
 
 		Log.i("PMM", "AKI");
 
 		for (int i = 0; i < boletimList.size(); i++) {
 
-			boletimBean = (BoletimBean) boletimList.get(i);
+			boletimIndBean = (BoletimIndBean) boletimList.get(i);
 			Log.i("PBM", "BOLETIM");
-			Log.i("PBM", "idBoletim = " + boletimBean.getIdBoletim());
-			Log.i("PBM", "idExtBoletim = " + boletimBean.getIdExtBoletim());
-			Log.i("PBM", "idFuncBoletim = " + boletimBean.getIdFuncBoletim());
-			Log.i("PBM", "EquipBoletim = " + boletimBean.getEquipBoletim());
-			Log.i("PBM", "dthrInicialBoletim = " + boletimBean.getDthrInicialBoletim());
-			Log.i("PBM", "dthrFinalBoletim = " + boletimBean.getDthrFinalBoletim());
-			Log.i("PBM", "statusBoletim = " + boletimBean.getStatusBoletim());
+			Log.i("PBM", "idBoletim = " + boletimIndBean.getIdBoletim());
+			Log.i("PBM", "idExtBoletim = " + boletimIndBean.getIdExtBoletim());
+			Log.i("PBM", "idFuncBoletim = " + boletimIndBean.getIdFuncBoletim());
+			Log.i("PBM", "EquipBoletim = " + boletimIndBean.getNroAparelhoBoletim());
+			Log.i("PBM", "dthrInicialBoletim = " + boletimIndBean.getDthrInicialBoletim());
+			Log.i("PBM", "dthrFinalBoletim = " + boletimIndBean.getDthrFinalBoletim());
+			Log.i("PBM", "statusBoletim = " + boletimIndBean.getStatusBoletim());
 
 		}
 
-		ApontBean apontTO = new ApontBean();
+		ApontIndBean apontTO = new ApontIndBean();
 		List apontList = apontTO.all();
 
 		for (int i = 0; i < apontList.size(); i++) {
 
-			apontTO = (ApontBean) apontList.get(i);
+			apontTO = (ApontIndBean) apontList.get(i);
 			Log.i("PBM", "APONTAMENTO");
 			Log.i("PBM", "idApont = " + apontTO.getIdApont());
 			Log.i("PBM", "idBolApont = " + apontTO.getIdBolApont());
@@ -70,6 +72,33 @@ public class ReceberAlarme extends BroadcastReceiver {
 			Log.i("PBM", "dthrFinalAponta = " + apontTO.getDthrFinalApont());
 			Log.i("PBM", "realizAponta = " + apontTO.getRealizApont());
 			Log.i("PBM", "statusAponta = " + apontTO.getStatusApont());
+
+		}
+
+		OSBean osBean = new OSBean();
+		List osList = osBean.all();
+
+		for (int i = 0; i < osList.size(); i++) {
+
+			osBean = (OSBean) osList.get(i);
+			Log.i("PBM", "OS");
+			Log.i("PBM", "idOS = " + osBean.getIdOS());
+			Log.i("PBM", "nroOS = " + osBean.getNroOS());
+			Log.i("PBM", "tipoOS = " + osBean.getTipoOS());
+
+		}
+
+		ItemOSBean itemOSBean = new ItemOSBean();
+		List itemOSList = itemOSBean.all();
+
+		for (int i = 0; i < itemOSList.size(); i++) {
+
+			itemOSBean = (ItemOSBean) itemOSList.get(i);
+			Log.i("PBM", "ItemOS");
+			Log.i("PBM", "idItemOS = " + itemOSBean.getIdItemOS());
+			Log.i("PBM", "idOS = " + itemOSBean.getIdOS());
+			Log.i("PBM", "seqItemOS = " + itemOSBean.getSeqItemOS());
+			Log.i("PBM", "idOficSecaoItemOS = " + itemOSBean.getIdOficSecaoItemOS());
 
 		}
 

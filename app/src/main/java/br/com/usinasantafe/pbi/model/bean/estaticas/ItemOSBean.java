@@ -17,9 +17,7 @@ public class ItemOSBean extends Entidade {
     @DatabaseField
     private Long seqItemOS;
     @DatabaseField
-    private Long idServItemOS;
-    @DatabaseField
-    private Long idCompItemOS;
+    private Long idOficSecaoItemOS;
 
     public ItemOSBean() {
     }
@@ -48,19 +46,12 @@ public class ItemOSBean extends Entidade {
         this.seqItemOS = seqItemOS;
     }
 
-    public Long getIdServItemOS() {
-        return idServItemOS;
+    public Long getIdOficSecaoItemOS() {
+        return idOficSecaoItemOS;
     }
 
-    public void setIdServItemOS(Long idServItemOS) {
-        this.idServItemOS = idServItemOS;
+    public void setIdOficSecaoItemOS(Long idOficSecaoItemOS) {
+        this.idOficSecaoItemOS = idOficSecaoItemOS;
     }
 
-    public Long getIdCompItemOS() {
-        return idCompItemOS;
-    }
-
-    public void setIdCompItemOS(Long idCompItemOS) {
-        this.idCompItemOS = idCompItemOS;
-    }
 }

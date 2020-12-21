@@ -17,6 +17,14 @@ public class ColabBean extends Entidade {
     @DatabaseField
     private String nomeColab;
     @DatabaseField
+    private Long flagApontMecanColab;
+    @DatabaseField
+    private Long flagApontIndColab;
+    @DatabaseField
+    private Long flagSolicColab;
+    @DatabaseField
+    private Long idOficSecaoColab;
+    @DatabaseField
     private Long idEscalaTrabColab;
 
     public ColabBean() {
@@ -44,6 +52,38 @@ public class ColabBean extends Entidade {
 
     public void setNomeColab(String nomeColab) {
         this.nomeColab = nomeColab;
+    }
+
+    public Long getFlagApontMecanColab() {
+        return flagApontMecanColab;
+    }
+
+    public void setFlagApontMecanColab(Long flagApontMecanColab) {
+        this.flagApontMecanColab = flagApontMecanColab;
+    }
+
+    public Long getFlagApontIndColab() {
+        return flagApontIndColab;
+    }
+
+    public void setFlagApontIndColab(Long flagApontIndColab) {
+        this.flagApontIndColab = flagApontIndColab;
+    }
+
+    public Long getFlagSolicColab() {
+        return flagSolicColab;
+    }
+
+    public void setFlagSolicColab(Long flagSolicColab) {
+        this.flagSolicColab = flagSolicColab;
+    }
+
+    public Long getIdOficSecaoColab() {
+        return idOficSecaoColab;
+    }
+
+    public void setIdOficSecaoColab(Long idOficSecaoColab) {
+        this.idOficSecaoColab = idOficSecaoColab;
     }
 
     public Long getIdEscalaTrabColab() {

@@ -20,7 +20,7 @@ import java.util.List;
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ParadaBean;
-import br.com.usinasantafe.pbi.model.bean.variaveis.ApontBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
 import br.com.usinasantafe.pbi.util.VerifDadosServ;
 import br.com.usinasantafe.pbi.util.ConexaoWeb;
 
@@ -77,11 +77,11 @@ public class ListaParadaActivity extends ActivityGeneric {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        pbiContext.getMecanicoCTR().setApontBean(new ApontBean());
-                        pbiContext.getMecanicoCTR().getApontBean().setOsApont(0L);
-                        pbiContext.getMecanicoCTR().getApontBean().setItemOSApont(0L);
-                        pbiContext.getMecanicoCTR().getApontBean().setParadaApont(pbiContext.getMecanicoCTR().getParadaCod(Long.parseLong(textParada.substring(0, textParada.indexOf('-')).trim())).getIdParada());
-                        pbiContext.getMecanicoCTR().getApontBean().setRealizApont(1L);
+                        pbiContext.getMecanicoCTR().setApontIndBean(new ApontIndBean());
+                        pbiContext.getMecanicoCTR().getApontIndBean().setOsApont(0L);
+                        pbiContext.getMecanicoCTR().getApontIndBean().setItemOSApont(0L);
+                        pbiContext.getMecanicoCTR().getApontIndBean().setParadaApont(pbiContext.getMecanicoCTR().getParadaCod(Long.parseLong(textParada.substring(0, textParada.indexOf('-')).trim())).getIdParada());
+                        pbiContext.getMecanicoCTR().getApontIndBean().setRealizApont(1L);
                         pbiContext.getMecanicoCTR().salvarApont();
 
                         if(pbiContext.getVerTela() == 2){

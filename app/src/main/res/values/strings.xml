@@ -142,7 +142,7 @@
     <string name="wifi_ssid_label">Network Name</string>
     <string name="wifi_type_label">Type</string>
     <string name="app_name">PBI</string>
-    <string name="texto_menu_principal">PRINCIPAL - V 2.00</string>
+    <string name="texto_menu_principal">PRINCIPAL - V 1.00</string>
     <string name="texto_item_list">TESTE</string>
     <string name="texto_num1">1</string>
     <string name="texto_num2">2</string>
@@ -183,4 +183,15 @@
     <string name="texto_pega_prod">CAPTURAR CÓDIGO DE BARRA PRODUTO</string>
     <string name="texto_dig_prod">DIGITAR PRODUTO</string>
     <string name="texto_qtde_prod">QTDE PRODUTO:</string>
+    <string name="texto_nro_celular">NRO APARELHO:</string>
+    <string name="texto_menu_titulo_func">COLABORADOR</string>
+    <string name="texto_menu_func">1 - FUNCIONARIO FICTICIO</string>
+    <string name="texto_menu_nro_os">NRO OS: 10000</string>
+    <string name="texto_menu_item_os">ITEM OS: 1</string>
+    <string name="texto_titulo_prod">PRODUTO(S)</string>
+    <string name="texto_add_produto">INSERIR PRODUTO</string>
+    <string name="texto_finalizar_req">FINALIZAR REQUISIÇÃO</string>
+    <string name="texto_ret_menu">RETORNAR AO MENU</string>
+    <string name="texto_titulo_embalagem">EMBALAGEM</string>
+    <string name="texto_titulo_local">LOCAL</string>
 </resources>
