@@ -1,5 +1,7 @@
 package br.com.usinasantafe.pbi.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +20,7 @@ import br.com.usinasantafe.pbi.model.bean.variaveis.ItemReqProdBean;
 
 public class ListaProdutoActivity extends ActivityGeneric {
 
-    private List<ItemReqProdBean> prodList;
+    private List<ItemReqProdBean> itemReqProdList;
     private ListView prodListView;
     private PBIContext pbiContext;
 
@@ -32,7 +34,7 @@ public class ListaProdutoActivity extends ActivityGeneric {
         TextView textViewItemOS = (TextView) findViewById(R.id.textViewItemOS);
         Button buttonInserirProduto = (Button) findViewById(R.id.buttonInserirProduto);
         Button buttonFinalizarReq = (Button) findViewById(R.id.buttonFinalizarReq);
-        Button buttonRetMenuProd = (Button) findViewById(R.id.buttonFinalizarReq);
+        Button buttonRetMenuProd = (Button) findViewById(R.id.buttonRetMenuProd);
 
         pbiContext = (PBIContext) getApplication();
 
@@ -41,11 +43,13 @@ public class ListaProdutoActivity extends ActivityGeneric {
         textViewNroOS.setText("NRO OS: " +  cabecReqProdBean.getNroOSCabecReqProd());
         textViewItemOS.setText("ITEM OS:"  + cabecReqProdBean.getItemOSCabecReqProd());
 
-        prodList = pbiContext.getReqProdutoCTR().itemReqProdList();
+        itemReqProdList = pbiContext.getReqProdutoCTR().itemReqProdList();
         ArrayList<String> itens = new ArrayList<String>();
 
-        for(ItemReqProdBean itemReqProdBean : prodList){
-            itens.add(String.valueOf(itemReqProdBean.getIdProdItemReqProd()));
+        for(ItemReqProdBean itemReqProdBean : itemReqProdList){
+            String produto = "PRODUTO: " + pbiContext.getReqProdutoCTR().getProduto(itemReqProdBean.getIdProdItemReqProd()).getCodProduto() + " - " + pbiContext.getReqProdutoCTR().getProduto(itemReqProdBean.getIdProdItemReqProd()).getDescrProduto();
+            String qtde = "QTDE: " + itemReqProdBean.getQtdeItemReqProd();
+            itens.add(produto + "\n" + qtde);
         }
 
         AdapterList adapterList = new AdapterList(this, itens);
@@ -55,8 +59,33 @@ public class ListaProdutoActivity extends ActivityGeneric {
         prodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> l, View v, int position,
+            public void onItemClick(AdapterView<?> l, View v, final int position,
                                     long id) {
+
+                AlertDialog.Builder alerta = new AlertDialog.Builder(ListaProdutoActivity.this);
+                alerta.setTitle("ATENÇÃO");
+                alerta.setMessage("DESEJA REALMENTE EXCLUIR O PRODUTO DA REQUISIÇÃO?");
+                alerta.setNegativeButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        pbiContext.getReqProdutoCTR().delItemReqProd(itemReqProdList.get(position));
+                        itemReqProdList.clear();
+
+                        Intent it = new Intent(ListaProdutoActivity.this, ListaProdutoActivity.class);
+                        startActivity(it);
+                        finish();
+
+                    }
+                });
+
+                alerta.setPositiveButton("NÃO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                alerta.show();
 
             }
 
@@ -79,9 +108,27 @@ public class ListaProdutoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-//                Intent it = new Intent(ListaProdutoActivity.this, MenuFuncaoActivity.class);
-//                startActivity(it);
-//                finish();
+                if(pbiContext.getReqProdutoCTR().verQtdeItem()){
+
+                    pbiContext.getReqProdutoCTR().fecharCabecReqProd();
+
+                    Intent it = new Intent(ListaProdutoActivity.this, MenuInicialActivity.class);
+                    startActivity(it);
+                    finish();
+
+                }
+                else{
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(ListaProdutoActivity.this);
+                    alerta.setTitle("ATENÇÃO");
+                    alerta.setMessage("POR FAVOR. INSIRA PRODUTO(S) PARA PODER FINALIZAR A REQUISIÇÃO.");
+                    alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+
+                    alerta.show();
+                }
 
             }
         });
@@ -91,9 +138,29 @@ public class ListaProdutoActivity extends ActivityGeneric {
             @Override
             public void onClick(View v) {
 
-//                Intent it = new Intent(ListaProdutoActivity.this, MenuInicialActivity.class);
-//                startActivity(it);
-//                finish();
+                AlertDialog.Builder alerta = new AlertDialog.Builder(ListaProdutoActivity.this);
+                alerta.setTitle("ATENÇÃO");
+                alerta.setMessage("DESEJA REALMENTE SAIR DA REQUISIÇÃO? ISSO FARÁ QUE A INFORMAÇÃO DA MESMA SEJA APAGADAS.");
+                alerta.setNegativeButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        pbiContext.getReqProdutoCTR().delCabecAberto();
+
+                        Intent it = new Intent(ListaProdutoActivity.this, MenuInicialActivity.class);
+                        startActivity(it);
+                        finish();
+
+                    }
+                });
+
+                alerta.setPositiveButton("NÃO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                alerta.show();
 
             }
         });

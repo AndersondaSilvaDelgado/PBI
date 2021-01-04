@@ -15,7 +15,7 @@ public class EmbalagemDAO {
     public boolean verQtdeEmbProd(Long idProd){
         List<EmbalProdBean> embalProdList = embalProdList(idProd);
         boolean ret = true;
-        if(embalProdList.size() > 0){
+        if(embalProdList.size() > 1){
            ret = false;
         }
         embalProdList.clear();

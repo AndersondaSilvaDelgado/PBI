@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import br.com.usinasantafe.pbi.PBIContext;
 import br.com.usinasantafe.pbi.R;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ItemOSBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
 import br.com.usinasantafe.pbi.util.ConexaoWeb;
 
 public class ItemOSListaActivity extends ActivityGeneric {
@@ -34,7 +35,13 @@ public class ItemOSListaActivity extends ActivityGeneric {
         Button buttonRetItemOS = (Button) findViewById(R.id.buttonRetItemOS);
         Button buttonAtualItemOS = (Button) findViewById(R.id.buttonAtualItemOS);
 
-        itemOSList = pbiContext.getMecanicoCTR().itemOSList();
+        if(pbiContext.getVerTela() == 3) {
+            itemOSList = pbiContext.getMecanicoCTR().itemOSList();
+        }
+        else{
+            itemOSList = pbiContext.getReqProdutoCTR().itemOSList();
+        }
+
         ArrayList<String> itens = new ArrayList<String>();
 
         for(ItemOSBean itemOSBean : itemOSList){

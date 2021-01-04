@@ -203,7 +203,6 @@ public class MecanicoCTR {
 
     public OSBean getOS(){
         OSDAO osDAO = new OSDAO();
-        Log.i("PBI", "OS = " + apontIndBean.getOsApont());
         return osDAO.getOS(apontIndBean.getOsApont());
     }
 

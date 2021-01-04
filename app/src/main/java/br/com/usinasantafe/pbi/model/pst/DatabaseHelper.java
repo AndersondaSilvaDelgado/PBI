@@ -21,6 +21,7 @@ import br.com.usinasantafe.pbi.model.bean.estaticas.ParametroBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.ProdutoBean;
 import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
 import br.com.usinasantafe.pbi.model.bean.variaveis.BoletimIndBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.CabecReqProdBean;
 import br.com.usinasantafe.pbi.model.bean.variaveis.ConfigBean;
 import br.com.usinasantafe.pbi.model.bean.variaveis.ItemReqProdBean;
 
@@ -71,6 +72,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(cs, ApontIndBean.class);
 			TableUtils.createTable(cs, BoletimIndBean.class);
 			TableUtils.createTable(cs, ConfigBean.class);
+			TableUtils.createTable(cs, CabecReqProdBean.class);
 			TableUtils.createTable(cs, ItemReqProdBean.class);
 
 		}

@@ -70,21 +70,21 @@ public class EnvioDadosServ {
     }
 
     public void enviarReqProduto() {
-//
-//        ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
-//        String dados = reqProdutoCTR.dadosEnvioReqProduto();
-//
-//        Log.i("PMM", "REQ PRODUTO = " + dados);
-//
-//        UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
-//
-//        String[] url = {urlsConexaoHttp.getsInsertReqProduto()};
-//        Map<String, Object> parametrosPost = new HashMap<String, Object>();
-//        parametrosPost.put("dado", dados);
-//
-//        PostCadGenerico conHttpPostGenerico = new PostCadGenerico();
-//        conHttpPostGenerico.setParametrosPost(parametrosPost);
-//        conHttpPostGenerico.execute(url);
+
+        ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
+        String dados = reqProdutoCTR.dadosEnvioCabec();
+
+        Log.i("PMM", "REQ PRODUTO = " + dados);
+
+        UrlsConexaoHttp urlsConexaoHttp = new UrlsConexaoHttp();
+
+        String[] url = {urlsConexaoHttp.getsInsertReqProduto()};
+        Map<String, Object> parametrosPost = new HashMap<String, Object>();
+        parametrosPost.put("dado", dados);
+
+        PostCadGenerico conHttpPostGenerico = new PostCadGenerico();
+        conHttpPostGenerico.setParametrosPost(parametrosPost);
+        conHttpPostGenerico.execute(url);
 
     }
 
@@ -109,7 +109,7 @@ public class EnvioDadosServ {
                 mecanicoCTR.atualApont(result);
             }
             else if(result.trim().startsWith("REQPRODUTO")){
-//                reqProdutoCTR.delReqProduto(result);
+                reqProdutoCTR.delCabec(result);
             }
         } catch (Exception e) {
             setEnviando(true);
@@ -143,17 +143,19 @@ public class EnvioDadosServ {
                 enviarBolAberto();
             }
             else{
-//                if(reqProdutoCTR.verReqProduto()){
-//                    enviarReqProduto();
-//                }
+                if(reqProdutoCTR.verEnvioReqProduto()){
+                    enviarReqProduto();
+                }
             }
         }
     }
 
     public boolean verifDadosEnvio() {
         MecanicoCTR mecanicoCTR = new MecanicoCTR();
+        ReqProdutoCTR reqProdutoCTR = new ReqProdutoCTR();
         if ((!mecanicoCTR.verBoletimFechado())
-                && (!mecanicoCTR.verApontSemEnvio())) {
+                && (!mecanicoCTR.verApontSemEnvio())
+                && (!reqProdutoCTR.verEnvioReqProduto())) {
             enviando = false;
             return false;
         } else {

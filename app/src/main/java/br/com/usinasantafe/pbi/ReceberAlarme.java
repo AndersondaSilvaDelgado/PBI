@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.util.List;
 
 import br.com.usinasantafe.pbi.model.bean.estaticas.ItemOSBean;
 import br.com.usinasantafe.pbi.model.bean.estaticas.OSBean;
 import br.com.usinasantafe.pbi.model.bean.variaveis.ApontIndBean;
 import br.com.usinasantafe.pbi.model.bean.variaveis.BoletimIndBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.CabecReqProdBean;
+import br.com.usinasantafe.pbi.model.bean.variaveis.ItemReqProdBean;
 import br.com.usinasantafe.pbi.model.pst.DatabaseHelper;
 import br.com.usinasantafe.pbi.util.EnvioDadosServ;
 import br.com.usinasantafe.pbi.util.Tempo;
@@ -36,22 +40,22 @@ public class ReceberAlarme extends BroadcastReceiver {
 
 	public void teste() {
 
+		Log.i("PMM", "AKI");
+
 		BoletimIndBean boletimIndBean = new BoletimIndBean();
 		List boletimList = boletimIndBean.all();
-
-		Log.i("PMM", "AKI");
 
 		for (int i = 0; i < boletimList.size(); i++) {
 
 			boletimIndBean = (BoletimIndBean) boletimList.get(i);
-			Log.i("PBM", "BOLETIM");
-			Log.i("PBM", "idBoletim = " + boletimIndBean.getIdBoletim());
-			Log.i("PBM", "idExtBoletim = " + boletimIndBean.getIdExtBoletim());
-			Log.i("PBM", "idFuncBoletim = " + boletimIndBean.getIdFuncBoletim());
-			Log.i("PBM", "EquipBoletim = " + boletimIndBean.getNroAparelhoBoletim());
-			Log.i("PBM", "dthrInicialBoletim = " + boletimIndBean.getDthrInicialBoletim());
-			Log.i("PBM", "dthrFinalBoletim = " + boletimIndBean.getDthrFinalBoletim());
-			Log.i("PBM", "statusBoletim = " + boletimIndBean.getStatusBoletim());
+			Log.i("PBI", "BOLETIM");
+			Log.i("PBI", "idBoletim = " + boletimIndBean.getIdBoletim());
+			Log.i("PBI", "idExtBoletim = " + boletimIndBean.getIdExtBoletim());
+			Log.i("PBI", "idFuncBoletim = " + boletimIndBean.getIdFuncBoletim());
+			Log.i("PBI", "EquipBoletim = " + boletimIndBean.getNroAparelhoBoletim());
+			Log.i("PBI", "dthrInicialBoletim = " + boletimIndBean.getDthrInicialBoletim());
+			Log.i("PBI", "dthrFinalBoletim = " + boletimIndBean.getDthrFinalBoletim());
+			Log.i("PBI", "statusBoletim = " + boletimIndBean.getStatusBoletim());
 
 		}
 
@@ -61,45 +65,51 @@ public class ReceberAlarme extends BroadcastReceiver {
 		for (int i = 0; i < apontList.size(); i++) {
 
 			apontTO = (ApontIndBean) apontList.get(i);
-			Log.i("PBM", "APONTAMENTO");
-			Log.i("PBM", "idApont = " + apontTO.getIdApont());
-			Log.i("PBM", "idBolApont = " + apontTO.getIdBolApont());
-			Log.i("PBM", "idExtBolApont = " + apontTO.getIdExtBolApont());
-			Log.i("PBM", "osApont = " + apontTO.getOsApont());
-			Log.i("PBM", "itemOSApont = " + apontTO.getItemOSApont());
-			Log.i("PBM", "paradaApont = " + apontTO.getParadaApont());
-			Log.i("PBM", "dthrInicialAponta = " + apontTO.getDthrInicialApont());
-			Log.i("PBM", "dthrFinalAponta = " + apontTO.getDthrFinalApont());
-			Log.i("PBM", "realizAponta = " + apontTO.getRealizApont());
-			Log.i("PBM", "statusAponta = " + apontTO.getStatusApont());
+			Log.i("PBI", "APONTAMENTO");
+			Log.i("PBI", "idApont = " + apontTO.getIdApont());
+			Log.i("PBI", "idBolApont = " + apontTO.getIdBolApont());
+			Log.i("PBI", "idExtBolApont = " + apontTO.getIdExtBolApont());
+			Log.i("PBI", "osApont = " + apontTO.getOsApont());
+			Log.i("PBI", "itemOSApont = " + apontTO.getItemOSApont());
+			Log.i("PBI", "paradaApont = " + apontTO.getParadaApont());
+			Log.i("PBI", "dthrInicialAponta = " + apontTO.getDthrInicialApont());
+			Log.i("PBI", "dthrFinalAponta = " + apontTO.getDthrFinalApont());
+			Log.i("PBI", "realizAponta = " + apontTO.getRealizApont());
+			Log.i("PBI", "statusAponta = " + apontTO.getStatusApont());
 
 		}
 
-		OSBean osBean = new OSBean();
-		List osList = osBean.all();
+		CabecReqProdBean cabecReqProdBean = new CabecReqProdBean();
+		List cabecList = cabecReqProdBean.all();
 
-		for (int i = 0; i < osList.size(); i++) {
+		for (int i = 0; i < cabecList.size(); i++) {
 
-			osBean = (OSBean) osList.get(i);
-			Log.i("PBM", "OS");
-			Log.i("PBM", "idOS = " + osBean.getIdOS());
-			Log.i("PBM", "nroOS = " + osBean.getNroOS());
-			Log.i("PBM", "tipoOS = " + osBean.getTipoOS());
-
+			cabecReqProdBean = (CabecReqProdBean) cabecList.get(i);
+			Log.i("PBI", "CABEC REQ");
+			Log.i("PBI", "idCabecReqProd = " + cabecReqProdBean.getIdCabecReqProd());
+			Log.i("PBI", "idFuncCabecReqProd = " + cabecReqProdBean.getIdFuncCabecReqProd());
+			Log.i("PBI", "aparelhoCabecReqProd = " + cabecReqProdBean.getAparelhoCabecReqProd());
+			Log.i("PBI", "nroOSCabecReqProd = " + cabecReqProdBean.getNroOSCabecReqProd());
+			Log.i("PBI", "itemOSCabecReqProd = " + cabecReqProdBean.getItemOSCabecReqProd());
+			Log.i("PBI", "dthrInicialCabecReqProd = " + cabecReqProdBean.getDthrInicialCabecReqProd());
+			Log.i("PBI", "dthrFinalCabecReqProd = " + cabecReqProdBean.getDthrFinalCabecReqProd());
+			Log.i("PBI", "statusCabecReqProd = " + cabecReqProdBean.getStatusCabecReqProd());
 		}
 
-		ItemOSBean itemOSBean = new ItemOSBean();
-		List itemOSList = itemOSBean.all();
+		ItemReqProdBean itemReqProdBean = new ItemReqProdBean();
+		List itemList = itemReqProdBean.all();
 
-		for (int i = 0; i < itemOSList.size(); i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 
-			itemOSBean = (ItemOSBean) itemOSList.get(i);
-			Log.i("PBM", "ItemOS");
-			Log.i("PBM", "idItemOS = " + itemOSBean.getIdItemOS());
-			Log.i("PBM", "idOS = " + itemOSBean.getIdOS());
-			Log.i("PBM", "seqItemOS = " + itemOSBean.getSeqItemOS());
-			Log.i("PBM", "idOficSecaoItemOS = " + itemOSBean.getIdOficSecaoItemOS());
-
+			itemReqProdBean = (ItemReqProdBean) itemList.get(i);
+			Log.i("PBI", "ITEM REQ");
+			Log.i("PBI", "idItemReqProd = " + itemReqProdBean.getIdItemReqProd());
+			Log.i("PBI", "idCabecItemReqProd = " + itemReqProdBean.getIdCabecItemReqProd());
+			Log.i("PBI", "idProdItemReqProd = " + itemReqProdBean.getIdProdItemReqProd());
+			Log.i("PBI", "idEmbItemReqProd = " + itemReqProdBean.getIdEmbItemReqProd());
+			Log.i("PBI", "idLocalItemReqProd = " + itemReqProdBean.getIdLocalItemReqProd());
+			Log.i("PBI", "qtdeItemReqProd = " + itemReqProdBean.getQtdeItemReqProd());
+			Log.i("PBI", "dthrItemReqProd = " + itemReqProdBean.getDthrItemReqProd());
 		}
 
 	}

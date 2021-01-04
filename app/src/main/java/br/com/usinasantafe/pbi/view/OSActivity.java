@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -37,60 +38,49 @@ public class OSActivity extends ActivityGeneric {
 
                 if (!editTextPadrao.getText().toString().equals("")) {
 
+                    boolean verOS;
+
                     if(pbiContext.getVerTela() == 3) {
+
                         pbiContext.getMecanicoCTR().setApontIndBean(new ApontIndBean());
                         pbiContext.getMecanicoCTR().getApontIndBean().setOsApont(Long.parseLong(editTextPadrao.getText().toString()));
+
                     }
-                    else if(pbiContext.getVerTela() == 4) {
+                    else{
+
                         pbiContext.getReqProdutoCTR().getCabecReqProdBean().setNroOSCabecReqProd(Long.parseLong(editTextPadrao.getText().toString()));
+
                     }
 
-                    try {
+                    if(pbiContext.getMecanicoCTR().verOSApont(Long.parseLong(editTextPadrao.getText().toString()))) {
 
-                        if(pbiContext.getMecanicoCTR().verOSApont(Long.parseLong(editTextPadrao.getText().toString()))) {
+                        Intent it = new Intent(OSActivity.this, ItemOSListaActivity.class);
+                        startActivity(it);
+                        finish();
 
-                            Intent it = new Intent(OSActivity.this, ItemOSListaActivity.class);
+                    }
+                    else{
+
+                        ConexaoWeb conexaoWeb = new ConexaoWeb();
+                        if (conexaoWeb.verificaConexao(OSActivity.this)) {
+
+                            progressBar = new ProgressDialog(v.getContext());
+                            progressBar.setCancelable(true);
+                            progressBar.setMessage("Pequisando a OS...");
+                            progressBar.show();
+
+                            customHandler.postDelayed(updateTimerThread, 10000);
+
+                            pbiContext.getMecanicoCTR().verOS(editTextPadrao.getText().toString().trim()
+                                    , OSActivity.this, ItemOSListaActivity.class, progressBar);
+
+                        } else {
+
+                            Intent it = new Intent(OSActivity.this, ItemOSDigActivity.class);
                             startActivity(it);
                             finish();
 
                         }
-                        else{
-
-                            ConexaoWeb conexaoWeb = new ConexaoWeb();
-                            if (conexaoWeb.verificaConexao(OSActivity.this)) {
-
-                                progressBar = new ProgressDialog(v.getContext());
-                                progressBar.setCancelable(true);
-                                progressBar.setMessage("Pequisando a OS...");
-                                progressBar.show();
-
-                                customHandler.postDelayed(updateTimerThread, 10000);
-
-                                pbiContext.getMecanicoCTR().verOS(editTextPadrao.getText().toString().trim()
-                                        , OSActivity.this, ItemOSListaActivity.class, progressBar);
-
-                            } else {
-
-                                Intent it = new Intent(OSActivity.this, ItemOSDigActivity.class);
-                                startActivity(it);
-                                finish();
-
-                            }
-
-                        }
-
-                    } catch (Exception e) {
-
-                        AlertDialog.Builder alerta = new AlertDialog.Builder(OSActivity.this);
-                        alerta.setTitle("ATENÇÃO");
-                        alerta.setMessage("O.S. INCORRETA OU INEXISTENTE! FAVOR VERIFICAR.");
-                        alerta.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-
-                        alerta.show();
 
                     }
                 }

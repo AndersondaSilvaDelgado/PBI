@@ -65,9 +65,9 @@ public class MenuFuncaoActivity extends ActivityGeneric {
                 TextView textView = (TextView) v.findViewById(R.id.textViewItemList);
                 String text = textView.getText().toString();
 
-                if (text.equals("APONTAMENTO")) {
+                pbiContext.getMecanicoCTR().atualSalvarBoletim();
 
-                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
+                if (text.equals("APONTAMENTO")) {
 
                     Intent it;
                     if (!pbiContext.getMecanicoCTR().verApont()) {
@@ -115,8 +115,6 @@ public class MenuFuncaoActivity extends ActivityGeneric {
                     }
 
                 } else if (text.equals("FINALIZAR/INTERROPER")) {
-
-                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
 
                     if (pbiContext.getMecanicoCTR().verApont()) {
 
@@ -179,8 +177,6 @@ public class MenuFuncaoActivity extends ActivityGeneric {
                     }
 
                 } else if (text.equals("FINALIZAR TURNO")) {
-
-                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
 
                     AlertDialog.Builder alerta = new AlertDialog.Builder(MenuFuncaoActivity.this);
                     alerta.setTitle("ATENÇÃO");
@@ -251,7 +247,6 @@ public class MenuFuncaoActivity extends ActivityGeneric {
 
                 } else if (text.equals("HISTÓRICO")) {
 
-                    pbiContext.getMecanicoCTR().atualSalvarBoletim();
                     Intent it = new Intent(MenuFuncaoActivity.this, ListaHistoricoActivity.class);
                     startActivity(it);
                     finish();

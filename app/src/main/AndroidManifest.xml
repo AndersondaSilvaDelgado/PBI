@@ -29,9 +29,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.ListaLocalActivity"></activity>
-        <activity android:name=".view.ListaEmbalagemActivity" />
-        <activity android:name=".view.ListaProdutoActivity" />
+        <activity
+            android:name=".view.ListaLocalActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".view.ListaEmbalagemActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".view.ListaProdutoActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".view.QtdeProdActivity"
             android:screenOrientation="portrait"
@@ -93,10 +102,12 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".view.MenuInicialActivity">
+        <activity
+            android:name=".view.MenuInicialActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

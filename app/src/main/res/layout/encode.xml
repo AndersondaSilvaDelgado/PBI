@@ -14,38 +14,37 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:fillViewport="true"
               android:background="@color/encode_view"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               android:gravity="center"
               tools:ignore="Overdraw">
 
   <ImageView android:id="@+id/image_view"
-             android:layout_width="fill_parent"
-             android:layout_height="wrap_content"
-             android:layout_gravity="center_horizontal"
+             android:layout_width="wrap_content"
+             android:layout_height="fill_parent"
+             android:layout_gravity="center_vertical"
              android:scaleType="center"
              tools:ignore="ContentDescription"/>
 
-  <ScrollView android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:gravity="center">
+  <ScrollView android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center">
 
     <TextView android:id="@+id/contents_text_view"
-              android:layout_width="fill_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
+              android:layout_gravity="center_vertical"
               android:gravity="center"
               android:textColor="@color/contents_text"
-              android:paddingBottom="@dimen/standard_padding"
-              android:paddingLeft="@dimen/standard_padding"
-              android:paddingRight="@dimen/standard_padding"
+              android:paddingRight="8dip"
+              android:paddingTop="8dip"
+              android:paddingBottom="8dip"
               android:textIsSelectable="true"/>
 
   </ScrollView>

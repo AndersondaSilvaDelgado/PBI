@@ -24,9 +24,21 @@ public class ProdutoDAO {
         return produtoBean;
     }
 
+    public ProdutoBean getProduto(Long idProduto){
+        List<ProdutoBean> produtoList = produtoList(idProduto);
+        ProdutoBean produtoBean = produtoList.get(0);
+        produtoList.clear();
+        return produtoBean;
+    }
+
     public List<ProdutoBean> produtoList(String codProduto){
         ProdutoBean produtoBean = new ProdutoBean();
         return produtoBean.get("codProduto", codProduto);
+    }
+
+    public List<ProdutoBean> produtoList(Long idProduto){
+        ProdutoBean produtoBean = new ProdutoBean();
+        return produtoBean.get("idProduto", idProduto);
     }
 
 }
